@@ -2,7 +2,7 @@
   "name": "test",
   "version": "0.0.1",
   "private": true,
-  "description": "Card Matching Game",
+  "description": "Emoji Password",
   "keywords": [],
   "author": "",
   "license": "",
@@ -10,6 +10,6 @@
   "dependencies": {
     "emoji-data": "^0.2.0",
     "express": "*",
-    "node-emoji": "*"
+    "nodemon": "*"
   }
 }
