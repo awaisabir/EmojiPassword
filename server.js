@@ -1,5 +1,4 @@
 let express = require('express');
-let emoji = require('node-emoji').emoji;
 let emojiData = require('emoji-data');
 let path = require('path');
 
