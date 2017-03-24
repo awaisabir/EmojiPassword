@@ -16,7 +16,20 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/html/index.html');
 });
 
-app.get('/random_emojis', (req, res) => {
+// Added an endpoint to return all emojis
+app.get('/emojis', (req, res, next) => {
+
+    let emojis = {};
+
+    for (let i = 0; i < emojiData.all().length; i++) {
+        emojis[emojiData.all()[i].name] = emojiData.all()[i].render();
+    }
+
+    return res.json(emojis);
+});
+
+// endpoint to return 7 random emojis for a password
+app.get('/password_emojis', (req, res) => {
 
 		// emoji array
     let emoji_array = [];
@@ -38,5 +51,5 @@ app.get('/random_emojis', (req, res) => {
     }
 
 		// send that result array over
-    res.json(result_array);
+    return res.json(result_array);
 });

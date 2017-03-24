@@ -13,7 +13,7 @@ $(document).ready(() => {
 
     facebook.click(() => {
         if (counter === 1) {
-            $.get('/random_emojis', (data) => {
+            $.get('/password_emojis', (data) => {
                 for (let i = 0; i < data.length; i++) {
                     for (var emoji in data[i]) {
                         if (data[i].hasOwnProperty(emoji)) {
@@ -32,7 +32,7 @@ $(document).ready(() => {
 
     email.click(() => {
         if (counter === 1) {
-            $.get('/random_emojis', (data) => {
+            $.get('/password_emojis', (data) => {
                 for (let i = 0; i < data.length; i++) {
                     for (var emoji in data[i]) {
                         if (data[i].hasOwnProperty(emoji)) {
@@ -50,7 +50,7 @@ $(document).ready(() => {
 
     bank.click(() => {
         if (counter === 1) {
-            $.get('/random_emojis', (data) => {
+            $.get('/password_emojis', (data) => {
                 for (let i = 0; i < data.length; i++) {
                     for (var emoji in data[i]) {
                         if (data[i].hasOwnProperty(emoji)) {
