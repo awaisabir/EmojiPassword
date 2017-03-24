@@ -6,12 +6,12 @@ $(document).ready(() => {
     let bank = $('#bank');
     let clear = $('#clear');
     let writ_pass = $('#written-password');
+    let try_btn = $('#try');
     writ_pass.hide();
 
     let counter = 1;
 
     facebook.click(() => {
-
         if (counter === 1) {
             $.get('/random_emojis', (data) => {
                 for (let i = 0; i < data.length; i++) {
@@ -59,6 +59,9 @@ $(document).ready(() => {
                     }
                 };
             });
+            let random = Math.floor(1000 + Math.random() * 9000);
+            writ_pass.empty();
+            writ_pass.append('<p>PIN : <strong>' + random + '</strong></p>');
             writ_pass.show();
             counter++;
         }
