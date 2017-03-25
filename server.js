@@ -17,39 +17,26 @@ app.get('/', (req, res) => {
 });
 
 // Added an endpoint to return all emojis
-app.get('/emojis', (req, res, next) => {
+app.get('/28_emojis', (req, res, next) => {
 
-    let emojis = {};
+  // emoji array
+  let emoji_array = [];
 
-    for (let i = 0; i < emojiData.all().length; i++) {
-        emojis[emojiData.all()[i].name] = emojiData.all()[i].render();
-    }
+  // push each JSON with the attributes I want
+  for (let i = 0; i < emojiData.all().length; i++) {
+      let proxyJSON = {};
+      proxyJSON[emojiData.all()[i].name] = emojiData.all()[i].render();
+      emoji_array.push(proxyJSON);
+  }
 
-    return res.json(emojis);
-});
-
-// endpoint to return 7 random emojis for a password
-app.get('/password_emojis', (req, res) => {
-
-		// emoji array
-    let emoji_array = [];
-
-		// push each JSON with the attributes I want
-    for (let i = 0; i < emojiData.all().length; i++) {
-        let proxyJSON = {};
-        proxyJSON[emojiData.all()[i].name] = emojiData.all()[i].render();
-        emoji_array.push(proxyJSON);
-    }
-
-    // make a result array => 7
+    // make a result array => 28
     let result_array = [];
 
     // get random number for array and push onto the result array
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 28; i++) {
         let random = Math.floor(Math.random() * (844 - 0 + 1)) + 0;
         result_array.push(emoji_array[random]);
     }
 
-		// send that result array over
     return res.json(result_array);
 });
