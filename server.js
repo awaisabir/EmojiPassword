@@ -9,8 +9,6 @@ let app = express();
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
-// schema for csv record
-let fields = ['time'];
 let arr = [];
 
 app.use(express.static(__dirname + '/public'));
@@ -26,10 +24,25 @@ app.get('/', (req, res, next) => {
 })
 
 app.post('/csv', (req, res, next) => {
-  let data = req.body;
-  arr.push(data);
 
-  let csv = json2csv({data: arr, fields: fields});
+  // let data = fs.readFileSync('./public/csv/file.csv', 'UTF-8');
+  // console.log(data);
+
+  // time : for event
+  // site : facebook/email/Bank
+  // user : 'user'+(count+1)
+  // scheme : em0ji
+  // mode : create/test
+  // event  : X button clicked
+  // data/message   : message sent
+
+  let item = {
+    time: req.body.time,
+    message: req.body.message
+  }
+  arr.push(item);
+
+  let csv = json2csv({data: arr});
   fs.writeFile('./public/csv/file.csv', csv, (err) => {
     if(err)
       throw err;
@@ -37,5 +50,5 @@ app.post('/csv', (req, res, next) => {
     console.log('file saved');
   })
 
-  return res.json({message: 'Reached the /csv endpoint!'});
+  return res.json(req.body);
 })
