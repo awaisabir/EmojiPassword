@@ -8,8 +8,12 @@
   "license": "",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "csv-write-stream": "^2.0.0",
     "emoji-data": "^0.2.0",
     "express": "*",
+    "json2csv": "^3.7.3",
+    "jsonexport": "^1.5.2",
     "nodemon": "*"
   }
 }
