@@ -9,8 +9,9 @@ $(document).ready( () => {
                    currentdate.getDate() + " " +
                    currentdate.getHours() + ":" +
                    currentdate.getMinutes();
+    let message = "Button Clicked\n";
 
-    $.post('/csv', {time: datetime}, (data) => {
+    $.post('/csv', {time: datetime, message: message}, (data) => {
       console.log(data);
     })
   })
