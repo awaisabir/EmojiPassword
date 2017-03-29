@@ -30,9 +30,9 @@ app.post('/csv', (req, res, next) => {
 
   // time : for event
   // site : facebook/email/Bank
-  // user : 'user'+(count+1)
+  // user : username <- create a prompt
   // scheme : em0ji
-  // mode : create/test
+  // mode : what the user is trying to do (Create a password, Enter, Login)
   // event  : X button clicked
   // data/message   : message sent
 
