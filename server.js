@@ -25,9 +25,6 @@ app.get('/', (req, res, next) => {
 
 app.post('/csv', (req, res, next) => {
 
-  // let data = fs.readFileSync('./public/csv/file.csv', 'UTF-8');
-  // console.log(data);
-
   // time : for event
   // site : facebook/email/Bank
   // user : username <- create a prompt
@@ -37,9 +34,14 @@ app.post('/csv', (req, res, next) => {
   // data/message   : message sent
 
   let item = {
-    time: req.body.time,
-    message: req.body.message
-  }
+    time:   req.body.time,
+    site:   req.body.site,
+    user:   req.body.user,
+    scheme: req.body.scheme,
+    mode:   req.body.mode,
+    event:  req.body.event,
+    data:   req.body.data
+};
   arr.push(item);
 
   let csv = json2csv({data: arr});
