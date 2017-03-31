@@ -13,26 +13,20 @@ let arr = [];
 
 app.use(express.static(__dirname + '/public'));
 
+// Listen on port 3000
 app.listen(3000, () => {
 
     console.log("Server started.");
 });
 
-<<<<<<< HEAD
+// default route
 app.get('/', (req, res, next) => {
 
   res.sendFile(__dirname + '/public/html/index.html');
 })
 
+// post endpoint for generating a csv
 app.post('/csv', (req, res, next) => {
-
-  // time : for event
-  // site : facebook/email/Bank
-  // user : username <- create a prompt
-  // scheme : em0ji
-  // mode : what the user is trying to do (Create a password, Enter, Login)
-  // event  : X button clicked
-  // data/message   : message sent
 
   let item = {
     time:   req.body.time,
@@ -55,11 +49,7 @@ app.post('/csv', (req, res, next) => {
 
   return res.json(req.body);
 })
-=======
-app.get('/', (req, res) => {
 
-    res.sendFile(__dirname + '/public/html/index.html');
-});
 
 // Added an endpoint to return all emojis
 app.get('/28_emojis', (req, res, next) => {
@@ -85,4 +75,3 @@ app.get('/28_emojis', (req, res, next) => {
 
     return res.json(result_array);
 });
->>>>>>> test
