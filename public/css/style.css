@@ -9,7 +9,7 @@
 
 #password {
   margin-top: 50px;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 #grid {
@@ -17,8 +17,20 @@
   font-size: 40px;
 }
 
-textarea {
-  min-height:110px;
+.grid {
+  font-size: 40px;
+  width: 80px;
+  height: 80px;
+}
+
+#textArea {
+  height: 60px;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+#passwordTest {
+  font-size: 30px;
 }
 
 .noresize {
@@ -31,4 +43,4 @@ textarea {
 
 .hresize {
   resize: horizontal;
-}  
+}
