@@ -16,6 +16,7 @@
         <h1>Password Generator & Tester</h1>
         <p>Created by @awaisabir and @theophilus</p>
 
+        <!-- Facebook, Email, and Bank buttons -->
         <div class="row" style="margin-top: 100px;">
             <div class="col-md-4 col-sm-4">
                 <button type="button" class="btn btn-primary" id="facebook">Facebook</button>
@@ -28,21 +29,31 @@
             </div>
         </div>
 
+        <!-- Password and Written Password well -->
         <div id="password" class="well"></div>
         <div id="written-password" class="well"></div>
 
-        <div class="second_row" style="margin-top: 50px;">
+        <!-- Clear and Try buttons -->
+        <div class="row" style="margin-top: 50px;">
             <button type="button" class="btn btn-warning" id="clear">Clear</button>
             <button type="button" class="btn btn-success" id="try">Try the Password!</button>
         </div>
 
+        <!-- Row of grid and password test area -->
         <div class="row" id="gridTestArea">
             <div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px;">
 
             </div>
             <div class="col-md-4 col-sm-4" id="inputArea" style="margin-top: 200px;">
                 <div id="passwordTest" class="well"></div>
-                <textarea class="form-control noresize col-md-4" id="textArea"> </textarea>
+                <textarea id="textArea" class="form-control noresize col-md-4"> </textarea>
+
+                <!-- Clear password test area and Check button -->
+                <div class="row">
+                    <button id="clearPasswordTest" type="button" class="btn btn-warning">Clear</button>
+                    <button id="checkPassword" type="button" class="btn btn-success">Check</button>
+                </div>
+
             </div>
         </div>
     </div>
