@@ -8,12 +8,18 @@ $(document).ready(() => {
     let writ_pass = $('#written-password');
     let try_btn = $('#try');
     let grid = $('#grid');
-    let textArea = $( '#textArea');
-    let gridTestArea = $( '#gridTestArea');
+    let textArea = $('#textArea');
+    let gridTestArea = $('#gridTestArea');
+    let checkPassword = $('#checkPassword');
+    let passwordTest = $('#passwordTest');
+    let clearPasswordTest = $('#clearPasswordTest');
+    //let gridEmoji = $('grid_emoji');
 
     // important functions at startup
     writ_pass.hide();
     gridTestArea.hide();
+    checkPassword.hide();
+    clearPasswordTest.hide();
     try_btn.addClass("disabled");
     clear.addClass("disabled");
 
@@ -25,7 +31,7 @@ $(document).ready(() => {
     let gridArray = []; // Contains 28 emojis for the grid
     let randoArray = []; // Contains random numbers between 0 to 27
     let passwordArray = []; // Contains the 7 emojis for the password
-
+    let passwordTestArray = []; // Contains the 7 test emojis for the password
 
     facebook.click(() => {
         if (counter === 1) {
@@ -150,9 +156,13 @@ $(document).ready(() => {
         bankClicked = false;
         grid.html('');
         textArea.val('');
+        passwordTest.html('');
         writ_pass.hide();
         gridTestArea.hide();
+        checkPassword.hide();
+        clearPasswordTest.hide();
         randoArray = [];
+        passwordTestArray = [];
         counter = 1;
     });
 
@@ -162,21 +172,26 @@ $(document).ready(() => {
         writ_pass.html('');
         //textArea.show();
         gridTestArea.show();
+        checkPassword.show();
+        clearPasswordTest.show();
 
         // if bank was not clicked hide the text area element
         if (bankClicked === false) {
             textArea.hide();
-        }
-        else {
+        } else {
             textArea.show();
         }
 
         // printing out the grid of emojis
         if (counter === 2) {
+            let gridEmojiCtr = 0;
             for (let i = 0; i < gridArray.length; i++) {
                 for (var emoji in gridArray[i]) {
                     if (gridArray[i].hasOwnProperty(emoji)) {
-                        grid.append(gridArray[i][emoji]);
+                        grid.append("<div class='btn btn-default grid' id='gridEmoji" + gridEmojiCtr + "'>" + gridArray[i][emoji] + "</div>");
+                        //grid.append(gridArray[i][emoji]);
+                        //grid.append("</div>")
+                        gridEmojiCtr++;
                     }
                 }
 
@@ -189,5 +204,28 @@ $(document).ready(() => {
         }
 
         try_btn.addClass("disabled");
+    });
+
+
+    // Click event for emoji grid
+    grid.click(() => {
+        let gridEmoji = $(event.target);
+        passwordTest.append("" + gridEmoji.text());
+        passwordTestArray[passwordTestArray.length] = gridEmoji.text();
+        // ----------- if we click outside the grid, the whole grid gets printed. A solution to this is to only print if the length of emoji equals to at most 1
+        console.log(passwordTestArray); // For testing if the password test array is correctly stored
+    });
+
+
+    // click event for clearing password testing area
+    clearPasswordTest.click(() => {
+        passwordTest.html('');
+        passwordTestArray = [];
+    });
+
+
+    // click event for testing password
+    checkPassword.click(() => {
+        // Do this tomorrow
     });
 });
