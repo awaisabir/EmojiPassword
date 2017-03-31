@@ -184,14 +184,10 @@ $(document).ready(() => {
 
         // printing out the grid of emojis
         if (counter === 2) {
-            let gridEmojiCtr = 0;
             for (let i = 0; i < gridArray.length; i++) {
                 for (var emoji in gridArray[i]) {
                     if (gridArray[i].hasOwnProperty(emoji)) {
-                        grid.append("<div class='btn btn-default grid' id='gridEmoji" + gridEmojiCtr + "'>" + gridArray[i][emoji] + "</div>");
-                        //grid.append(gridArray[i][emoji]);
-                        //grid.append("</div>")
-                        gridEmojiCtr++;
+                        grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + gridArray[i][emoji] + "</div>");
                     }
                 }
 
@@ -199,6 +195,11 @@ $(document).ready(() => {
                 if ((i + 1) % 4 === 0) {
                     grid.append("<br/>");
                 }
+
+                $("#gridEmoji"+i).click(function() {
+                  passwordTest.append("" + $(this).text());
+                  passwordTestArray[passwordTestArray.length] = $(this).text();
+                })
             }
             counter++;
         }
@@ -208,14 +209,13 @@ $(document).ready(() => {
 
 
     // Click event for emoji grid
-    grid.click(() => {
-        let gridEmoji = $(event.target);
-        passwordTest.append("" + gridEmoji.text());
-        passwordTestArray[passwordTestArray.length] = gridEmoji.text();
-        // ----------- if we click outside the grid, the whole grid gets printed. A solution to this is to only print if the length of emoji equals to at most 1
-        console.log(passwordTestArray); // For testing if the password test array is correctly stored
-    });
-
+    // grid.click(() => {
+    //     let gridEmoji = $(event.target);
+    //     passwordTest.append("" + gridEmoji.text());
+    //     passwordTestArray[passwordTestArray.length] = gridEmoji.text();
+    //     // ----------- if we click outside the grid, the whole grid gets printed. A solution to this is to only print if the length of emoji equals to at most 1
+    //     console.log(passwordTestArray); // For testing if the password test array is correctly stored
+    // });
 
     // click event for clearing password testing area
     clearPasswordTest.click(() => {
