@@ -1,12 +1,4 @@
 $(document).ready(() => {
-    /*  time   => get Date and string
-    site   => the button value
-    user   => grab from the username button
-    scheme => emoji always
-    mode   => what the user wants to do
-    event  => was it a success
-    data   => nobody cares
-  */
 
     let user = "";
     let site = "";
@@ -81,8 +73,8 @@ $(document).ready(() => {
                     event: 'success',
                     data: data
                 });
-                $('.username-wrapper').hide();
 
+                $('.username-wrapper').hide();
                 $('.scheme-container').append('<div class="row" style="margin-top: 100px;">' +
                     '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook">Facebook</button></div>' +
                     '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email">Email</button></div>' +
@@ -112,10 +104,7 @@ $(document).ready(() => {
                 let checkPassword = $('#checkPassword');
                 let passwordTest = $('#passwordTest');
                 let clearPasswordTest = $('#clearPasswordTest');
-                //let gridEmoji = $('grid_emoji');
 
-                // important functions at startup
-                // $('.scheme-container').hide();
                 writ_pass.hide();
                 gridTestArea.hide();
                 checkPassword.hide();
@@ -169,7 +158,6 @@ $(document).ready(() => {
                     clear.removeClass("disabled");
                 });
 
-
                 email.click(() => {
                     if (counter === 1) {
                         $.get('/28_emojis', (data) => {
@@ -204,7 +192,6 @@ $(document).ready(() => {
                     try_btn.removeClass("disabled");
                     clear.removeClass("disabled");
                 });
-
 
                 bank.click(() => {
                     if (counter === 1) {
@@ -245,7 +232,6 @@ $(document).ready(() => {
                     clear.removeClass("disabled");
                 });
 
-
                 clear.click(() => {
                     well.html('');
                     facebook.removeClass("disabled");
@@ -265,7 +251,6 @@ $(document).ready(() => {
                     passwordTestArray = [];
                     counter = 1;
                 });
-
 
                 try_btn.click(() => {
                     well.html('');
@@ -296,9 +281,9 @@ $(document).ready(() => {
                                 grid.append("<br/>");
                             }
 
-                            $("#gridEmoji"+i).click(function() {
-                              passwordTest.append("" + $(this).text());
-                              passwordTestArray[passwordTestArray.length] = $(this).text();
+                            $("#gridEmoji" + i).click(function() {
+                                passwordTest.append("" + $(this).text());
+                                passwordTestArray[passwordTestArray.length] = $(this).text();
                             })
                         }
                         counter++;
@@ -307,29 +292,16 @@ $(document).ready(() => {
                     try_btn.addClass("disabled");
                 });
 
-
-                // Click event for emoji grid
-                // grid.click(() => {
-                //     let gridEmoji = $(event.target);
-                //     passwordTest.append("" + gridEmoji.text());
-                //     passwordTestArray[passwordTestArray.length] = gridEmoji.text();
-                //     // ----------- if we click outside the grid, the whole grid gets printed. A solution to this is to only print if the length of emoji equals to at most 1
-                //     console.log(passwordTestArray); // For testing if the password test array is correctly stored
-                // });
-
                 // click event for clearing password testing area
                 clearPasswordTest.click(() => {
                     passwordTest.html('');
                     passwordTestArray = [];
                 });
 
-
                 // click event for testing password
                 checkPassword.click(() => {
                     // Do this tomorrow
                 });
-
-
 
             } else {
                 noty({text: 'Username Incorrect', type: 'error'});
