@@ -1,0 +1,46 @@
+.btn {
+  font-size: 17px;
+}
+
+.spacing {
+    /*margin-left: 50px;
+    margin-right: 50px;*/
+}
+
+#password {
+  margin-top: 50px;
+  font-size: 40px;
+}
+
+#grid {
+  padding-top: 100px;
+  font-size: 40px;
+}
+
+.grid {
+  font-size: 40px;
+  width: 80px;
+  height: 80px;
+}
+
+#textArea {
+  height: 60px;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+#passwordTest {
+  font-size: 30px;
+}
+
+.noresize {
+  resize: none;
+}
+
+.vresize {
+  resize: vertical;
+}
+
+.hresize {
+  resize: horizontal;
+}

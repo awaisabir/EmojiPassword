@@ -3,7 +3,6 @@
 
 # Emoji Password
 
-An Emoji password Scheme for potentially three different levels of security - Facebook, Email & Bank.
-Bank will utilize emoji with digits.
+This is the client-side test branch...and more....
 
 Created by: @awaisabir & @TheoJA
