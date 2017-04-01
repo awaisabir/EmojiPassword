@@ -1,5 +1,5 @@
 /*
-  
+
 */
 
 
@@ -86,6 +86,8 @@ app.post('/csv', (req, res, next) => {
             );
         }
     });
+
+    return res.json({success: true, message: 'csv changed'});
 })
 
 // Added an endpoint to return all emojis
