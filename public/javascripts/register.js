@@ -12,41 +12,30 @@ $(document).ready(() => {
     let register_btn = $('#register');
 
     register_btn.click(() => {
-
-        let currentdate = new Date();
-        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-        site = "main";
         user = $('#username').val();
-        scheme = "unknown"
-        mode = register_btn.html().toLowerCase();
-        event = "";
-        data = "";
 
         if (user === "") {
-            noty({
-                text: 'Enter a username!'
+            let currentdate = new Date();
+            time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+            noty({  text: 'Enter a username!'});
+            $.post('/csv', {time: time, site:"N/A", user: user, scheme: "unknown", mode: 'register', event: 'failure', data: 'data'}, (result) => {
+              console.log(result);
             });
-            event = "failure"
-            $.post('/csv', {
-                time: time,
-                site: site,
-                user: user,
-                scheme: scheme,
-                mode: mode,
-                event: event,
-                data: data
-            });
+            // event = "failure"
+            // $.post('/csv', {
+            //     time: time,
+            //     site: site,
+            //     user: user,
+            //     scheme: scheme,
+            //     mode: mode,
+            //     event: event,
+            //     data: data
+            // });
         } else {
-
-            event = 'success';
-            $.post('/csv', {
-                time: time,
-                site: site,
-                user: user,
-                scheme: scheme,
-                mode: mode,
-                event: event,
-                data: data
+            let currentdate = new Date();
+            time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+            $.post('/csv', {time: time, site:"N/A", user: user, scheme: "unknown", mode: 'register', event: 'success', data: 'data'}, (result) => {
+              console.log(result);
             });
             username = user;
 
@@ -109,6 +98,11 @@ $(document).ready(() => {
 
             facebook.click(() => {
                 if (counter === 1) {
+                    let currentdate = new Date();
+                    time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                    $.post('/csv', {time: time, site:"facebook", user: user, scheme: "emoji", mode: "create", event: "success", data: "data"}, (result) => {
+                      console.log(result);
+                    })
                     facebookClicked = true;
                     $.get('/28_emojis', (data) => {
                         gridArray = data;
@@ -135,8 +129,6 @@ $(document).ready(() => {
                         }
                     });
                     counter++;
-                    let currentdate = new Date();
-                    time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
 
 
                 }
@@ -150,6 +142,11 @@ $(document).ready(() => {
 
             email.click(() => {
                 if (counter === 1) {
+                  let currentdate = new Date();
+                  time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                  $.post('/csv', {time: time, site:"email", user: user, scheme: "emoji", mode: 'create', event: 'success', data: 'data'}, (result) => {
+                    console.log(result);
+                  });
                     emailClicked = true;
                     $.get('/28_emojis', (data) => {
                         gridArray = data;
@@ -175,17 +172,6 @@ $(document).ready(() => {
                             }
                         }
                     });
-                    let currentdate = new Date();
-                    time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                    $.post('/csv', {
-                        time: time,
-                        site: "email",
-                        user: username,
-                        scheme: "emoji-order",
-                        mode: "create",
-                        event: 'success',
-                        data: data
-                    });
                     counter++;
                 }
                 facebook.addClass("disabled");
@@ -197,6 +183,11 @@ $(document).ready(() => {
 
             bank.click(() => {
                 if (counter === 1) {
+                  let currentdate = new Date();
+                  time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                  $.post('/csv', {time: time, site:"email", user: user, scheme: "emoji", mode: 'create', event: 'success', data: 'data'}, (result) => {
+                    console.log(result);
+                  });
                     $.get('/28_emojis', (data) => {
                         gridArray = data;
                         bankClicked = true;
@@ -235,15 +226,15 @@ $(document).ready(() => {
 
                 let currentdate = new Date();
                 time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                $.post('/csv', {
-                    time: time,
-                    site: "bank",
-                    user: username,
-                    scheme: "emoji-order-pin",
-                    mode: "create",
-                    event: 'success',
-                    data: data
-                });
+                // $.post('/csv', {
+                //     time: time,
+                //     site: "bank",
+                //     user: username,
+                //     scheme: "emoji-order-pin",
+                //     mode: "create",
+                //     event: 'success',
+                //     data: data
+                // });
             });
 
             clear.click(() => {
