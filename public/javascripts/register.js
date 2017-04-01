@@ -23,7 +23,9 @@ $(document).ready(() => {
         data = "";
 
         if (user === "") {
-            noty({text: 'Enter a username!'});
+            noty({
+                text: 'Enter a username!'
+            });
             event = "failure"
             $.post('/csv', {
                 time: time,
@@ -50,17 +52,22 @@ $(document).ready(() => {
 
             $('.username-wrapper').hide();
             $('.scheme-container').append('<div class="row" style="margin-top: 100px;">' +
+                '<div style="margin-bottom: 20px; font-size: 18px;">Click one of the schemes below to generate a password:</div>' +
                 '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook">Facebook</button></div>' +
                 '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email">Email</button></div>' +
                 '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank">Bank</button></div></div>' +
                 '<div id="password" class="well"></div>' +
                 '<div id="written-password" class="well"></div>' +
-                '<div class="row" style="margin-top: 50px;"><button type="button" class="btn btn-warning" id="clear">Clear</button><button type="button" class="btn btn-success" id="try">Try the Password!</button></div>' +
-                '<div class="row" id="gridTestArea"><div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px;"></div>' +
+                '<div class="row" style="margin-top: 50px;">' +
+                '<div style="margin-bottom: 20px; font-size: 18px;">Test your password below:</div>' +
+                '<button type="button" class="btn btn-warning" id="clear" style="margin-right: 40px;">Reset</button><button type="button" class="btn btn-success" id="try">Test</button></div>' +
+                '<div class="row" id="gridTestArea">' +
+                '<div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px; padding-top: 50px;"></div>' +
                 '<div class="col-md-4 col-sm-4" id="inputArea" style="margin-top: 200px;">' +
+                '<div id="instruct"></div>' +
                 '<div id="passwordTest" class="well"></div>' +
-                '<textarea id="textArea" class="form-control noresize col-md-4"></textarea>' +
-                '<div class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning">Clear</button><button id="checkPassword" type="button" class="btn btn-success">Check</button></div>' +
+                '<input id="textArea" class="form-control noresize"></input>' +
+                '<div class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword" type="button" class="btn btn-success">Check</button></div>' +
                 '</div></div></div>');
 
             $('.scheme-container').show();
@@ -86,23 +93,28 @@ $(document).ready(() => {
             try_btn.addClass("disabled");
             clear.addClass("disabled");
 
-            // iterator variables
+            // iterator and important variables
             let counter = 1;
             let rando = 0;
+            let facebookClicked = false;
+            let emailClicked = false;
             let bankClicked = false;
 
             let gridArray = []; // Contains 28 emojis for the grid
             let randoArray = []; // Contains random numbers between 0 to 27
-            let passwordArray = []; // Contains the 7 emojis for the password
-            let passwordTestArray = []; // Contains the 7 test emojis for the password
+            let facebookPassword = []; // Contains the 5 emojis for the fb password
+            let emailPassword = []; // Contains the 5 emojis for the email password
+            let bankPassword = []; // Contains the 5 emojis for the bank password
+            let passwordTestArray = []; // Contains the 5 test emojis for the password
 
             facebook.click(() => {
                 if (counter === 1) {
+                    facebookClicked = true;
                     $.get('/28_emojis', (data) => {
                         gridArray = data;
 
                         // generating an array of random numbers between 0 to 27
-                        for (let j = 0; j < 7; j++) {
+                        for (let j = 0; j < 5; j++) {
 
                             let rando = Math.floor(Math.random() * (27 - 0 + 1)) + 0;
 
@@ -117,7 +129,7 @@ $(document).ready(() => {
                             for (var emoji in gridArray[randoArray[j]]) {
                                 if (gridArray[randoArray[j]].hasOwnProperty(emoji)) {
                                     well.append(gridArray[randoArray[j]][emoji]);
-                                    passwordArray[j] = gridArray[randoArray[j]][emoji];
+                                    facebookPassword[j] = gridArray[randoArray[j]][emoji];
                                 }
                             }
                         }
@@ -126,7 +138,7 @@ $(document).ready(() => {
                     let currentdate = new Date();
                     time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
 
-                    
+
                 }
 
                 facebook.addClass("disabled");
@@ -138,11 +150,12 @@ $(document).ready(() => {
 
             email.click(() => {
                 if (counter === 1) {
+                    emailClicked = true;
                     $.get('/28_emojis', (data) => {
                         gridArray = data;
 
                         // generating an array of random numbers between 0 to 27
-                        for (let j = 0; j < 7; j++) {
+                        for (let j = 0; j < 5; j++) {
 
                             let rando = Math.floor(Math.random() * (27 - 0 + 1)) + 0;
 
@@ -157,7 +170,7 @@ $(document).ready(() => {
                             for (var emoji in gridArray[randoArray[j]]) {
                                 if (gridArray[randoArray[j]].hasOwnProperty(emoji)) {
                                     well.append(gridArray[randoArray[j]][emoji]);
-                                    passwordArray[j] = gridArray[randoArray[j]][emoji];
+                                    emailPassword[j] = gridArray[randoArray[j]][emoji];
                                 }
                             }
                         }
@@ -188,7 +201,7 @@ $(document).ready(() => {
                         gridArray = data;
                         bankClicked = true;
                         // generating an array of random numbers between 0 to 27
-                        for (let j = 0; j < 7; j++) {
+                        for (let j = 0; j < 5; j++) {
 
                             let rando = Math.floor(Math.random() * (27 - 0 + 1)) + 0;
 
@@ -203,7 +216,7 @@ $(document).ready(() => {
                             for (var emoji in gridArray[randoArray[j]]) {
                                 if (gridArray[randoArray[j]].hasOwnProperty(emoji)) {
                                     well.append(gridArray[randoArray[j]][emoji]);
-                                    passwordArray[j] = gridArray[randoArray[j]][emoji];
+                                    bankPassword[j] = gridArray[randoArray[j]][emoji];
                                 }
                             }
                         }
@@ -240,7 +253,10 @@ $(document).ready(() => {
                 bank.removeClass("disabled");
                 try_btn.addClass("disabled");
                 clear.addClass("disabled");
+                facebookClicked = false;
+                emailClicked = false;
                 bankClicked = false;
+                $('#instruct').html('');
                 grid.html('');
                 textArea.val('');
                 passwordTest.html('');
@@ -254,22 +270,36 @@ $(document).ready(() => {
             });
 
             try_btn.click(() => {
-                well.html('');
-                writ_pass.html('');
-                //textArea.show();
-                gridTestArea.show();
-                checkPassword.show();
-                clearPasswordTest.show();
-
-                // if bank was not clicked hide the text area element
-                if (bankClicked === false) {
-                    textArea.hide();
-                } else {
-                    textArea.show();
-                }
-
                 // printing out the grid of emojis
                 if (counter === 2) {
+                    //testing the contents of all 3 password arrays
+                    console.log(facebookPassword);
+                    console.log(emailPassword);
+                    console.log(bankPassword);
+
+                    gridTestArea.show();
+                    checkPassword.show();
+                    clearPasswordTest.show();
+                    grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+
+                    // if facebook was clicked
+                    if (facebookClicked === true) {
+                        $('#instruct').prepend('<div id="fbInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
+                    }
+
+                    // if email was clicked
+                    if (emailClicked === true) {
+                        $('#instruct').prepend('<div id="emailInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password matters.)</div>');
+                    }
+
+                    // if bank was not clicked hide the text area element
+                    if (bankClicked === false) {
+                        textArea.hide();
+                    } else {
+                        $('#instruct').prepend('<div id="bankInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password and PIN matters.)</div>');
+                        textArea.show();
+                    }
+
                     for (let i = 0; i < gridArray.length; i++) {
                         for (var emoji in gridArray[i]) {
                             if (gridArray[i].hasOwnProperty(emoji)) {
@@ -278,7 +308,7 @@ $(document).ready(() => {
                         }
 
                         // adding newline after printing 4 emojis to create 4 X 7 grid
-                        if ((i + 1) % 4 === 0) {
+                        if ((i + 1) % 7 === 0) {
                             grid.append("<br/>");
                         }
 
@@ -296,6 +326,7 @@ $(document).ready(() => {
             // click event for clearing password testing area
             clearPasswordTest.click(() => {
                 passwordTest.html('');
+                textArea.val('');
                 passwordTestArray = [];
             });
 
