@@ -629,105 +629,123 @@ $(document).ready(() => {
                         counter = 1;
                         global_state_cheker++;
                         if (global_state_cheker === 2) {
-                            $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
-                            well.hide();
-                            $('#too').hide();
-                            $('#try').hide();
-                            $('.scheme-container').append(`
-                            <div class="row" style="margin-top: 60px;">
-                              <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
-                              <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
-                              <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
-                              <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank-2">Bank</button></div>
-                            </div>
-                            <div class="row" id="gridTestArea-2">
-                            <div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>
-                            <div class="col-md-4 col-sm-4" id="inputArea-2" style="margin-top: 80px;">
-                            <div id="instruct-2"></div>
-                            <div id="passwordTest-2" class="well"></div>
-                            <input id="textArea-2" class="form-control noresize"></input>
-                            <div id="testButtons-2" class="row"><button id="clearPasswordTest-2" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword-2" type="button" class="btn btn-success">Check</button>
-                          </div></div></div>`);
 
-                            $('#facebook-2').on('click', function() {
+                          facebook.show();
+                          email.show();
+                          bank.show();
+                          bank.removeClass('disabled');
 
-                                facebookClicked = true;
-                                // console.log(facebookPassword);
-                                //$('.scheme-container').append('<div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>');
-                                $('#grid-2').append('<div id="gridInstruct-2" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
-                                // if facebook was clicked
-                                // console.log(facebookGridArray);
+                          facebook.off('click').on('click', function() {
+                            console.log('This is the new FB handler');
+                          })
 
-                                if (facebookClicked === true) {
-                                    $('#instruct-2').prepend('<div id="fbInstruct-2" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
-                                    // ------------------------ fb grid ----------------------------
-                                    for (let i = 0; i < facebookGridArray.length; i++) {
-                                        for (var emoji in facebookGridArray[i]) {
-                                            if (facebookGridArray[i].hasOwnProperty(emoji)) {
-                                                $('#grid-2').append("<div class='btn btn-default grid' id='gridEmoji-" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
-                                            }
-                                        }
-                                        // adding newline after printing 4 emojis to create 4 X 7 grid
-                                        if ((i + 1) % 7 === 0) {
-                                            $('#grid-2').append("<br/>");
-                                        }
-                                        // inserting clicked emoji into the password test array
-                                        $("#gridEmoji-" + i).click(function() {
-                                            $('#passwordTest-2').append("" + $(this).text());
-                                            passwordTestArray[passwordTestArray.length] = $(this).text();
-                                            testPasswordRandoArray[testPasswordRandoArray.length] = i;
-                                        })
-                                    }
-                                }
+                          email.off('click').on('click', function() {
+                            console.log('This is the new Email handler');
+                          })
 
-                                $('#clearPasswordTest-2').on('click', function() {
-                                    $('#passwordTest-2').html('');
-                                })
-
-                                $('#checkPassword-2').on('click', function() {
-                                  let matchingCtr = 0;
-                                  let copies = 0;
-                                  let duplicatesExists = false;
-                                  let bankPinMatch = false;
-
-
-                                    for (var i = 0; i < testPasswordRandoArray.length; i++) {
-                                        copies = 0;
-                                        // check for duplicates inside the test array
-                                        for (var j = 0; j < testPasswordRandoArray.length; j++) {
-                                            if (copies > 1) {
-                                                duplicatesExists = true;
-                                                break;
-                                            }
-                                            if (testPasswordRandoArray[i] === testPasswordRandoArray[j]) {
-                                                copies++;
-                                            }
-                                        }
-                                        // check how many matching emojis
-                                        if (jQuery.inArray(testPasswordRandoArray[i], facebookRandoArray) !== -1) {
-                                            matchingCtr++;
-                                        } else {
-                                            matchingCtr--;
-                                        }
-                                    }
-
-                                    console.log(testPasswordRandoArray);
-                                    console.log(facebookRandoArray);
-                                    if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (duplicatesExists === false)) {
-                                        noty({text: 'Password is a match!'});
-
-                                        //randomTestBegun === false;
-                                        if ((facebookPassword.length === 5) && (emailPassword.length === 5) && (bankPassword.length === 5)) {
-                                            randomTestBegun = true;
-                                        }
-                                    }
-
-                                })
-                            })
-
-                            $('#email-2').on('click', function() {})
-
-                            $('#bank-2').on('click', function() {})
+                          bank.off('click').on('click', function() {
+                            console.log('This is the new Bank handler');
+                          })
+                          //   $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                          //   well.hide();
+                          //   $('#too').hide();
+                          //   $('#try').hide();
+                          //   $('.scheme-container').append(`
+                          //   <div class="row" style="margin-top: 60px;">
+                          //     <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
+                          //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
+                          //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
+                          //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank-2">Bank</button></div>
+                          //   </div>
+                          //   <div class="row" id="gridTestArea-2">
+                          //   <div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>
+                          //   <div class="col-md-4 col-sm-4" id="inputArea-2" style="margin-top: 80px;">
+                          //   <div id="instruct-2"></div>
+                          //   <div id="passwordTest-2" class="well"></div>
+                          //   <input id="textArea-2" class="form-control noresize"></input>
+                          //   <div id="testButtons-2" class="row"><button id="clearPasswordTest-2" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword-2" type="button" class="btn btn-success">Check</button>
+                          // </div></div></div>`);
+                          //
+                          //   $('#facebook-2').on('click', function() {
+                          //
+                          //
+                          //       facebookClicked = true;
+                          //       // console.log(facebookPassword);
+                          //       //$('.scheme-container').append('<div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>');
+                          //       $('#grid-2').append('<div id="gridInstruct-2" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                          //       // if facebook was clicked
+                          //       // console.log(facebookGridArray);
+                          //
+                          //       if (facebookClicked === true) {
+                          //           $('#instruct-2').prepend('<div id="fbInstruct-2" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
+                          //           // ------------------------ fb grid ----------------------------
+                          //           for (let i = 0; i < facebookGridArray.length; i++) {
+                          //               for (var emoji in facebookGridArray[i]) {
+                          //                   if (facebookGridArray[i].hasOwnProperty(emoji)) {
+                          //                       $('#grid-2').append("<div class='btn btn-default grid' id='gridEmoji-" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
+                          //                   }
+                          //               }
+                          //               // adding newline after printing 4 emojis to create 4 X 7 grid
+                          //               if ((i + 1) % 7 === 0) {
+                          //                   $('#grid-2').append("<br/>");
+                          //               }
+                          //               // inserting clicked emoji into the password test array
+                          //               $("#gridEmoji-" + i).click(function() {
+                          //                   $('#passwordTest-2').append("" + $(this).text());
+                          //                   passwordTestArray[passwordTestArray.length] = $(this).text();
+                          //                   testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                          //               })
+                          //           }
+                          //       }
+                          //
+                          //       $('#clearPasswordTest-2').on('click', function() {
+                          //           $('#passwordTest-2').html('');
+                          //       })
+                          //
+                          //       $('#checkPassword-2').on('click', function() {
+                          //         let matchingCtr = 0;
+                          //         let copies = 0;
+                          //         let duplicatesExists = false;
+                          //         let bankPinMatch = false;
+                          //
+                          //
+                          //           for (var i = 0; i < testPasswordRandoArray.length; i++) {
+                          //               copies = 0;
+                          //               // check for duplicates inside the test array
+                          //               for (var j = 0; j < testPasswordRandoArray.length; j++) {
+                          //                   if (copies > 1) {
+                          //                       duplicatesExists = true;
+                          //                       break;
+                          //                   }
+                          //                   if (testPasswordRandoArray[i] === testPasswordRandoArray[j]) {
+                          //                       copies++;
+                          //                   }
+                          //               }
+                          //               // check how many matching emojis
+                          //               if (jQuery.inArray(testPasswordRandoArray[i], facebookRandoArray) !== -1) {
+                          //                   matchingCtr++;
+                          //               } else {
+                          //                   matchingCtr--;
+                          //               }
+                          //           }
+                          //
+                          //           console.log(testPasswordRandoArray);
+                          //           console.log(facebookRandoArray);
+                          //           if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (duplicatesExists === false)) {
+                          //               noty({text: 'Password is a match!'});
+                          //
+                          //               //randomTestBegun === false;
+                          //               if ((facebookPassword.length === 5) && (emailPassword.length === 5) && (bankPassword.length === 5)) {
+                          //                   randomTestBegun = true;
+                          //               }
+                          //           }
+                          //
+                          //       })
+                          //   })
+                          //
+                          //   $('#email-2').on('click', function() {})
+                          //
+                          //   $('#bank-2').on('click', function() {})
                         }
                     } else {
                         noty({text: 'Password does not match!'});
