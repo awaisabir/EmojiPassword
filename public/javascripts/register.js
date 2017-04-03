@@ -534,11 +534,11 @@ $(document).ready(() => {
                         counter = 1;
                         global_state_cheker++;
                         if (global_state_cheker === 2) {
-                          $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
-                          well.hide();
-                          $('#too').hide();
-                          $('#try').hide();
-                          $('.container').append(`
+                            $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                            well.hide();
+                            $('#too').hide();
+                            $('#try').hide();
+                            $('.container').append(`
                           <div class="row" style="margin-top: 60px;">
                             <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
                             <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
@@ -588,11 +588,11 @@ $(document).ready(() => {
                         counter = 1;
                         global_state_cheker++;
                         if (global_state_cheker === 2) {
-                          $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
-                          well.hide();
-                          $('#too').hide();
-                          $('#try').hide();
-                          $('.container').append(`
+                            $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                            well.hide();
+                            $('#too').hide();
+                            $('#try').hide();
+                            $('.container').append(`
                           <div class="row" style="margin-top: 60px;">
                             <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
                             <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
@@ -643,8 +643,8 @@ $(document).ready(() => {
                         passwordTest.html('');
                         writ_pass.hide();
                         gridTestArea.hide();
-                        //testPasswordRandoArray = [];
-                        //passwordTestArray = [];
+                        testPasswordRandoArray = [];
+                        passwordTestArray = [];
                         //emailGridArray = [];
                         counter = 1;
                         global_state_cheker++;
@@ -659,24 +659,24 @@ $(document).ready(() => {
                               <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
                               <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
                               <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank-2">Bank</button></div>
-                            </div>` +
-                            '<div class="row" id="gridTestArea-2">' +
-                            '<div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>' +
-                            '<div class="col-md-4 col-sm-4" id="inputArea-2" style="margin-top: 80px;">' +
-                            '<div id="instruct-2"></div>' +
-                            '<div id="passwordTest-2" class="well"></div>' +
-                            '<input id="textArea-2" class="form-control noresize"></input>' +
-                            '<div id="testButtons-2" class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword-2" type="button" class="btn btn-success">Check</button>' +
-                            '</div></div></div>');
-
+                            </div>
+                            <div class="row" id="gridTestArea-2">
+                            <div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>
+                            <div class="col-md-4 col-sm-4" id="inputArea-2" style="margin-top: 80px;">
+                            <div id="instruct-2"></div>
+                            <div id="passwordTest-2" class="well"></div>
+                            <input id="textArea-2" class="form-control noresize"></input>
+                            <div id="testButtons-2" class="row"><button id="clearPasswordTest-2" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword-2" type="button" class="btn btn-success">Check</button>
+                          </div></div></div>`);
 
                             $('#facebook-2').on('click', function() {
+
                                 facebookClicked = true;
-                                console.log(facebookPassword);
+                                // console.log(facebookPassword);
                                 //$('.scheme-container').append('<div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>');
                                 $('#grid-2').append('<div id="gridInstruct-2" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
                                 // if facebook was clicked
-                                console.log(facebookGridArray);
+                                // console.log(facebookGridArray);
 
                                 if (facebookClicked === true) {
                                     $('#instruct-2').prepend('<div id="fbInstruct-2" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
@@ -699,15 +699,50 @@ $(document).ready(() => {
                                         })
                                     }
                                 }
+
+                                $('#clearPasswordTest-2').on('click', function() {
+                                    $('#passwordTest-2').html('');
+                                })
+
+                                $('#checkPassword-2').on('click', function() {
+                                ;
+                                    for (var i = 0; i < testPasswordRandoArray.length; i++) {
+                                        copies = 0;
+                                        // check for duplicates inside the test array
+                                        for (var j = 0; j < testPasswordRandoArray.length; j++) {
+                                            if (copies > 1) {
+                                                duplicatesExists = true;
+                                                break;
+                                            }
+                                            if (testPasswordRandoArray[i] === testPasswordRandoArray[j]) {
+                                                copies++;
+                                            }
+                                        }
+                                        // check how many matching emojis
+                                        if (jQuery.inArray(testPasswordRandoArray[i], facebookRandoArray) !== -1) {
+                                            matchingCtr++;
+                                        } else {
+                                            matchingCtr--;
+                                        }
+                                    }
+
+                                    console.log(testPasswordRandoArray);
+                                    console.log(facebookRandoArray);
+                                    if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (duplicatesExists === false)) {
+                                        noty({text: 'Password is a match!'});
+
+                                        //randomTestBegun === false;
+                                        if ((facebookPassword.length === 5) && (emailPassword.length === 5) && (bankPassword.length === 5)) {
+                                            randomTestBegun = true;
+                                        }
+                                    }
+
+                                })
                             })
 
-                            $('#email-2').on('click', function() {
+                            $('#email-2').on('click', function() {})
 
-                            })
-
-                            $('#bank-2').on('click', function() {
-
-                            })
+                            $('#bank-2').on('click', function() {})
                         }
                     } else {
                         noty({text: 'Password does not match!'});
