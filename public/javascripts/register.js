@@ -94,7 +94,6 @@ $(document).ready(() => {
             gridTestArea.hide();
             try_btn.addClass("disabled");
             clear.addClass("disabled");
-            //randomTest.addClass("disabled");
 
             // iterator and important variables
             let counter = 1;
@@ -121,6 +120,20 @@ $(document).ready(() => {
             let bankPin = 0;
             let passwordTestArray = []; // Contains the 5 test emojis for the password
             let pinTest = 0;
+
+            let cdate = new Date();
+            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+            $.post('/csv', {
+                time: time,
+                site: 'email',
+                user: user,
+                scheme: "emoji",
+                mode: 'create',
+                event: 'start',
+                data: 'good'
+            }, (result) => {
+                console.log(result);
+            });
 
             facebook.click(() => {
                 if (counter === 1) {
@@ -229,7 +242,7 @@ $(document).ready(() => {
                     time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
                     $.post('/csv', {
                         time: time,
-                        site: "email",
+                        site: "bank",
                         user: user,
                         scheme: "emoji",
                         mode: 'create',
@@ -280,100 +293,6 @@ $(document).ready(() => {
 
             });
 
-            // randomTest.click(() => {
-            //     if (counter === 1) {
-            //         if ((randomTestBegun === true) && (facebookClicked === false) && (emailClicked === false) && (bankClicked === false)) {
-            //             console.log("3 schemes tested, now for random schemes");
-            //             $('#randomRow').append('<div id="randomSchemeButtons"><div class="btn-group" data-toggle="buttons" style="margin-top: 10px;">' +
-            //                 '<label id="fbRadio" class="btn btn-default">' +
-            //                 '<input type="radio" name="options" autocomplete="off">Facebook' +
-            //                 '</label>' +
-            //                 '<label id="emailRadio" class="btn btn-default">' +
-            //                 '<input type="radio" name="options" autocomplete="off">Email' +
-            //                 '</label>' +
-            //                 '<label id="bankRadio" class="btn btn-default">' +
-            //                 '<input type="radio" name="options" autocomplete="off">Bank' +
-            //                 '</label>' +
-            //                 '</div></div>');
-            //             randomTestBegun = false;
-            //             counter = 4;
-            //             clear.removeClass("disabled");
-            //         }
-            //
-            //         if (counter === 4) {
-            //                 $('#fbRadio').click(function() {
-            //                     console.log("fb is selected");
-            //                     facebookClicked = true;
-            //                     counter = 2;
-            //                     randomTestBegun === false;
-            //                     try_btn.removeClass("disabled");
-            //                     $('#randomSchemeButtons').addClass("disabled"); // need to disable the radio buttons so participants cant pick anything else. Only clicking Reset will allow them to pick a new one
-            //                     facebook.addClass("disabled");
-            //                     email.addClass("disabled");
-            //                     bank.addClass("disabled");
-            //                     try_btn.removeClass("disabled");
-            //                     clear.removeClass("disabled");
-            //                 })
-            //                 $('#emailRadio').click(function() {
-            //                     console.log("email is selected");
-            //                     emailClicked = true;
-            //                     counter = 2;
-            //                     randomTestBegun === false;
-            //                     try_btn.removeClass("disabled");
-            //                     $('#randomSchemeButtons').addClass("disabled");
-            //                     facebook.addClass("disabled");
-            //                     email.addClass("disabled");
-            //                     bank.addClass("disabled");
-            //                     try_btn.removeClass("disabled");
-            //                     clear.removeClass("disabled");
-            //                 })
-            //                 $('#bankRadio').click(function() {
-            //                     console.log("bank is selected");
-            //                     bankClicked = true;
-            //                     counter = 2;
-            //                     randomTestBegun === false;
-            //                     try_btn.removeClass("disabled");
-            //                     $('#randomSchemeButtons').addClass("disabled");
-            //                     facebook.addClass("disabled");
-            //                     email.addClass("disabled");
-            //                     bank.addClass("disabled");
-            //                     try_btn.removeClass("disabled");
-            //                     clear.removeClass("disabled");
-            //                 })
-            //         }
-            //     }
-            // });
-
-            // clear.click(() => {
-            //     well.html('');
-            //     randomTest.removeClass("disabled");
-            //     //randomTestBegun === false;
-            //     if ((facebookPassword.length === 5) && (emailPassword.length === 5) && (bankPassword.length === 5)) {
-            //         randomTestBegun = true;
-            //     }
-            //     $('#randomSchemeButtons').remove();
-            //     facebook.removeClass("disabled");
-            //     email.removeClass("disabled");
-            //     bank.removeClass("disabled");
-            //     try_btn.addClass("disabled");
-            //     clear.addClass("disabled");
-            //     facebookClicked = false;
-            //     emailClicked = false;
-            //     bankClicked = false;
-            //     $('#instruct').html('');
-            //     grid.html('');
-            //     textArea.val('');
-            //     passwordTest.html('');
-            //     writ_pass.hide();
-            //     gridTestArea.hide();
-            //     //facebookRandoArray = [];
-            //     //emailRandoArray = [];
-            //     //bankRandoArray = [];
-            //     testPasswordRandoArray = [];
-            //     passwordTestArray = [];
-            //     counter = 1;
-            // });
-
             try_btn.click(() => {
                 // printing out the grid of emojis
                 if (counter === 2) {
@@ -383,9 +302,6 @@ $(document).ready(() => {
                     console.log(bankPassword);
 
                     gridTestArea.show();
-                    //checkPassword.show();
-                    //clearPasswordTest.show();
-                    //testButtons.show();
                     grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
 
                     // if facebook was clicked
@@ -506,7 +422,19 @@ $(document).ready(() => {
                     console.log(facebookRandoArray);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (duplicatesExists === false)) {
                         noty({text: 'Password is a match!'});
-
+                        let currentdate = new Date();
+                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                        $.post('/csv', {
+                            time: time,
+                            site: 'facebook',
+                            user: user,
+                            scheme: 'emoji',
+                            mode: 'create',
+                            event: 'pwtest',
+                            data: 'good'
+                        }, (result) => {
+                            console.log(result);
+                        });
                         well.html('');
                         randomTest.removeClass("disabled");
                         //randomTestBegun === false;
@@ -549,6 +477,19 @@ $(document).ready(() => {
                         }
                     } else {
                         noty({text: 'Password does not match!'});
+                        let currentdate = new Date();
+                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                        $.post('/csv', {
+                            time: time,
+                            site: 'facebook',
+                            user: user,
+                            scheme: "emoji",
+                            mode: 'create',
+                            event: 'pwtest',
+                            data: 'bad'
+                        }, (result) => {
+                            console.log(result);
+                        });
                     }
                 }
 
@@ -567,6 +508,19 @@ $(document).ready(() => {
                     console.log(emailRandoArray);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5)) {
                         noty({text: 'Password is a match!'});
+                        let currentdate = new Date();
+                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                        $.post('/csv', {
+                            time: time,
+                            site: 'email',
+                            user: user,
+                            scheme: "emoji",
+                            mode: 'create',
+                            event: 'pwtest',
+                            data: 'good'
+                        }, (result) => {
+                            console.log(result);
+                        });
                         // What Awais added
                         facebook.removeClass("disabled");
                         bank.removeClass("disabled");
@@ -603,6 +557,19 @@ $(document).ready(() => {
                         }
                     } else {
                         noty({text: 'Password does not match!'});
+                        let currentdate = new Date();
+                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                        $.post('/csv', {
+                            time: time,
+                            site: 'email',
+                            user: user,
+                            scheme: 'emoji',
+                            mode: 'create',
+                            event: 'pwtest',
+                            data: 'bad'
+                        }, (result) => {
+                            console.log(result);
+                        });
                     }
                 }
 
@@ -628,6 +595,19 @@ $(document).ready(() => {
                     console.log(bankPin);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (bankPinMatch === true)) {
                         noty({text: 'Password is a match!'});
+                        let currentdate = new Date();
+                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                        $.post('/csv', {
+                            time: time,
+                            site: 'bank',
+                            user: user,
+                            scheme: 'emoji',
+                            mode: 'create',
+                            event: 'pwtest',
+                            data: 'good'
+                        }, (result) => {
+                            console.log(result);
+                        });
 
                         email.removeClass("disabled");
                         facebook.removeClass("disabled");
@@ -705,7 +685,12 @@ $(document).ready(() => {
                                 })
 
                                 $('#checkPassword-2').on('click', function() {
-                                ;
+                                  let matchingCtr = 0;
+                                  let copies = 0;
+                                  let duplicatesExists = false;
+                                  let bankPinMatch = false;
+
+
                                     for (var i = 0; i < testPasswordRandoArray.length; i++) {
                                         copies = 0;
                                         // check for duplicates inside the test array
@@ -746,6 +731,19 @@ $(document).ready(() => {
                         }
                     } else {
                         noty({text: 'Password does not match!'});
+                        let currentdate = new Date();
+                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                        $.post('/csv', {
+                            time: time,
+                            site: 'bank',
+                            user: user,
+                            scheme: 'emoji',
+                            mode: 'create',
+                            event: 'pwtest',
+                            data: 'bad'
+                        }, (result) => {
+                            console.log(result);
+                        });
                     }
                 }
 
