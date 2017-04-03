@@ -513,6 +513,13 @@ $(document).ready(() => {
                         noty({
                             text: 'Password is a match!'
                         });
+
+                        gridTestArea.hide();
+                        try_btn.removeClass('disabled');
+                        well.html('');
+                        email.removeClass('disabled');
+                        bank.removeClass('disabled');
+                        console.log('er0uhuierjigerbjiors[iobhjo]');
                     } else {
                         noty({
                             text: 'Password does not match!'
