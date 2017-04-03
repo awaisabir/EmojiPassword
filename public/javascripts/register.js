@@ -56,12 +56,9 @@ $(document).ready(() => {
                 '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank">Bank</button></div></div>' +
                 '<div id="password" class="well"></div>' +
                 '<div id="written-password" class="well"></div>' +
-                '<div id="tryRow" class="row col-md-9 col-sm-9" style="margin-top: 50px;">' +
+                '<div id="tryRow" class="row" style="margin-top: 50px;">' +
                 '<div style="margin-bottom: 20px; font-size: 18px;">Try your password below:</div>' +
                 '<button type="button" class="btn btn-warning" id="clear" style="margin-right: 40px;">Reset</button><button type="button" class="btn btn-success" id="try">Try</button></div>' +
-                '<div id="randomRow" class="row col-md-3 col-sm-3" style="margin-top: 50px;">' +
-                '<div style="margin-bottom: 20px; font-size: 18px;">Test random schemes here:</div>' +
-                '<button type="button" class="btn btn-danger" id="randomTest">Random Test</button></div>' +
                 '</div>' +
                 '<div class="row" id="gridTestArea">' +
                 '<div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px; padding-top: 80px;"></div>' +
@@ -70,8 +67,6 @@ $(document).ready(() => {
                 '<div id="passwordTest" class="well"></div>' +
                 '<input id="textArea" class="form-control noresize"></input>' +
                 '<div id="testButtons" class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword" type="button" class="btn btn-success">Check</button>' +
-                '<div id="testInstruct" style="margin-bottom: 20px; margin-top: 60px; font-size: 18px;">When you are ready, test your password:</div>' +
-                '<button id="testPassword" type="button" class="btn btn-danger">Test</button></div>' +
                 '</div></div></div></div>');
 
             $('.scheme-container').show();
@@ -288,69 +283,69 @@ $(document).ready(() => {
             });
 
 
-            randomTest.click(() => {
-                if (counter === 1) {
-                    if ((randomTestBegun === true) && (facebookClicked === false) && (emailClicked === false) && (bankClicked === false)) {
-                        console.log("3 schemes tested, now for random schemes");
-                        $('#randomRow').append('<div id="randomSchemeButtons"><div class="btn-group" data-toggle="buttons" style="margin-top: 10px;">' +
-                            '<label id="fbRadio" class="btn btn-default">' +
-                            '<input type="radio" name="options" autocomplete="off">Facebook' +
-                            '</label>' +
-                            '<label id="emailRadio" class="btn btn-default">' +
-                            '<input type="radio" name="options" autocomplete="off">Email' +
-                            '</label>' +
-                            '<label id="bankRadio" class="btn btn-default">' +
-                            '<input type="radio" name="options" autocomplete="off">Bank' +
-                            '</label>' +
-                            '</div></div>');
-                        randomTestBegun = false;
-                        counter = 4;
-                        clear.removeClass("disabled");
-                    }
-
-                    if (counter === 4) {
-                            $('#fbRadio').click(function() {
-                                console.log("fb is selected");
-                                facebookClicked = true;
-                                counter = 2;
-                                randomTestBegun === false;
-                                try_btn.removeClass("disabled");
-                                $('#randomSchemeButtons').addClass("disabled"); // need to disable the radio buttons so participants cant pick anything else. Only clicking Reset will allow them to pick a new one
-                                facebook.addClass("disabled");
-                                email.addClass("disabled");
-                                bank.addClass("disabled");
-                                try_btn.removeClass("disabled");
-                                clear.removeClass("disabled");
-                            })
-                            $('#emailRadio').click(function() {
-                                console.log("email is selected");
-                                emailClicked = true;
-                                counter = 2;
-                                randomTestBegun === false;
-                                try_btn.removeClass("disabled");
-                                $('#randomSchemeButtons').addClass("disabled");
-                                facebook.addClass("disabled");
-                                email.addClass("disabled");
-                                bank.addClass("disabled");
-                                try_btn.removeClass("disabled");
-                                clear.removeClass("disabled");
-                            })
-                            $('#bankRadio').click(function() {
-                                console.log("bank is selected");
-                                bankClicked = true;
-                                counter = 2;
-                                randomTestBegun === false;
-                                try_btn.removeClass("disabled");
-                                $('#randomSchemeButtons').addClass("disabled");
-                                facebook.addClass("disabled");
-                                email.addClass("disabled");
-                                bank.addClass("disabled");
-                                try_btn.removeClass("disabled");
-                                clear.removeClass("disabled");
-                            })
-                    }
-                }
-            });
+            // randomTest.click(() => {
+            //     if (counter === 1) {
+            //         if ((randomTestBegun === true) && (facebookClicked === false) && (emailClicked === false) && (bankClicked === false)) {
+            //             console.log("3 schemes tested, now for random schemes");
+            //             $('#randomRow').append('<div id="randomSchemeButtons"><div class="btn-group" data-toggle="buttons" style="margin-top: 10px;">' +
+            //                 '<label id="fbRadio" class="btn btn-default">' +
+            //                 '<input type="radio" name="options" autocomplete="off">Facebook' +
+            //                 '</label>' +
+            //                 '<label id="emailRadio" class="btn btn-default">' +
+            //                 '<input type="radio" name="options" autocomplete="off">Email' +
+            //                 '</label>' +
+            //                 '<label id="bankRadio" class="btn btn-default">' +
+            //                 '<input type="radio" name="options" autocomplete="off">Bank' +
+            //                 '</label>' +
+            //                 '</div></div>');
+            //             randomTestBegun = false;
+            //             counter = 4;
+            //             clear.removeClass("disabled");
+            //         }
+            //
+            //         if (counter === 4) {
+            //                 $('#fbRadio').click(function() {
+            //                     console.log("fb is selected");
+            //                     facebookClicked = true;
+            //                     counter = 2;
+            //                     randomTestBegun === false;
+            //                     try_btn.removeClass("disabled");
+            //                     $('#randomSchemeButtons').addClass("disabled"); // need to disable the radio buttons so participants cant pick anything else. Only clicking Reset will allow them to pick a new one
+            //                     facebook.addClass("disabled");
+            //                     email.addClass("disabled");
+            //                     bank.addClass("disabled");
+            //                     try_btn.removeClass("disabled");
+            //                     clear.removeClass("disabled");
+            //                 })
+            //                 $('#emailRadio').click(function() {
+            //                     console.log("email is selected");
+            //                     emailClicked = true;
+            //                     counter = 2;
+            //                     randomTestBegun === false;
+            //                     try_btn.removeClass("disabled");
+            //                     $('#randomSchemeButtons').addClass("disabled");
+            //                     facebook.addClass("disabled");
+            //                     email.addClass("disabled");
+            //                     bank.addClass("disabled");
+            //                     try_btn.removeClass("disabled");
+            //                     clear.removeClass("disabled");
+            //                 })
+            //                 $('#bankRadio').click(function() {
+            //                     console.log("bank is selected");
+            //                     bankClicked = true;
+            //                     counter = 2;
+            //                     randomTestBegun === false;
+            //                     try_btn.removeClass("disabled");
+            //                     $('#randomSchemeButtons').addClass("disabled");
+            //                     facebook.addClass("disabled");
+            //                     email.addClass("disabled");
+            //                     bank.addClass("disabled");
+            //                     try_btn.removeClass("disabled");
+            //                     clear.removeClass("disabled");
+            //                 })
+            //         }
+            //     }
+            // });
 
 
             clear.click(() => {
@@ -505,7 +500,6 @@ $(document).ready(() => {
                                 copies++;
                             }
                         }
-
                         // check how many matching emojis
                         if (jQuery.inArray(testPasswordRandoArray[i], facebookRandoArray) !== -1) {
                             matchingCtr++;
@@ -582,15 +576,8 @@ $(document).ready(() => {
                         });
                     }
                 }
-            });
 
 
-            testPassword.click(() => {
-                testPasswordRandoArray = [];
-                well.html('');
-                writ_pass.html('');
-                passwordTest.html('');
-                textArea.val('');
             });
 
         }
