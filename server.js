@@ -105,10 +105,17 @@ app.get('/28_emojis', (req, res, next) => {
 
     // make a result array => 28
     let result_array = [];
+    let result_index = [];
 
     // get random number for array and push onto the result array
     for (let i = 0; i < 28; i++) {
         let random = Math.floor(Math.random() * (844 - 0 + 1)) + 0;
+
+        // prevents duplicates in the 28 emojis
+        while (result_index.includes(random) !== false) {
+            random = Math.floor(Math.random() * (844 - 0 + 1)) + 0;
+        }
+        result_index[i] = random;
         result_array.push(emoji_array[random]);
     }
 
