@@ -675,10 +675,65 @@ $(document).ready(() => {
 
                           email.off('click').on('click', function() {
                             console.log('This is the new Email handler');
+                            emailClicked = true;
+                            gridTestArea.show();
+                            grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                            // if email was clicked
+                            if (emailClicked === true) {
+                                $('#instruct').prepend('<div id="emailInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password matters.)</div>');
+                                // ------------------------ email grid ----------------------------
+                                for (let i = 0; i < emailGridArray.length; i++) {
+                                    for (var emoji in emailGridArray[i]) {
+                                        if (emailGridArray[i].hasOwnProperty(emoji)) {
+                                            grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + emailGridArray[i][emoji] + "</div>");
+                                        }
+                                    }
+                                    // adding newline after printing 4 emojis to create 4 X 7 grid
+                                    if ((i + 1) % 7 === 0) {
+                                        grid.append("<br/>");
+                                    }
+                                    // inserting clicked emoji into the password test array
+                                    $("#gridEmoji" + i).click(function() {
+                                        passwordTest.append("" + $(this).text());
+                                        passwordTestArray[passwordTestArray.length] = $(this).text();
+                                        testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                                    })
+                                }
+                            }
+
                           })
 
                           bank.off('click').on('click', function() {
                             console.log('This is the new Bank handler');
+                            bankClicked = true;
+                            gridTestArea.show();
+                            grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+
+                            if (bankClicked === false) {
+                                textArea.hide();
+                            } else {
+                                $('#instruct').prepend('<div id="bankInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password and PIN matters.)</div>');
+                                textArea.show();
+                                // ------------------------ bank grid ----------------------------
+                                for (let i = 0; i < bankGridArray.length; i++) {
+                                    for (var emoji in bankGridArray[i]) {
+                                        if (bankGridArray[i].hasOwnProperty(emoji)) {
+                                            grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + bankGridArray[i][emoji] + "</div>");
+                                        }
+                                    }
+                                    // adding newline after printing 4 emojis to create 4 X 7 grid
+                                    if ((i + 1) % 7 === 0) {
+                                        grid.append("<br/>");
+                                    }
+                                    // inserting clicked emoji into the password test array
+                                    $("#gridEmoji" + i).click(function() {
+                                        passwordTest.append("" + $(this).text());
+                                        passwordTestArray[passwordTestArray.length] = $(this).text();
+                                        testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                                    })
+                                }
+                            }
+
                           })
                           //   $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
                           //   well.hide();
