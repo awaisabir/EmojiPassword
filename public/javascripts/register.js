@@ -635,10 +635,42 @@ $(document).ready(() => {
                           bank.show();
                           bank.removeClass('disabled');
                           well.hide();
+                          grid.html('');
+                          $('#instruct').html('');
                           $('#tryRow').html('');
+                          $('#textArea').hide();
+
 
                           facebook.off('click').on('click', function() {
                             // MAKE GRID AND PASSWORD SHTI BUTTON HERE <<---------------------------------
+                            facebookClicked = true;
+                            gridTestArea.show();
+                            grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+
+                            // if facebook was clicked
+                            if (facebookClicked === true) {
+                                $('#instruct').prepend('<div id="fbInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
+                                // ------------------------ fb grid ----------------------------
+                                for (let i = 0; i < facebookGridArray.length; i++) {
+                                    for (var emoji in facebookGridArray[i]) {
+                                        if (facebookGridArray[i].hasOwnProperty(emoji)) {
+                                            grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
+                                        }
+                                    }
+                                    // adding newline after printing 4 emojis to create 4 X 7 grid
+                                    if ((i + 1) % 7 === 0) {
+                                        grid.append("<br/>");
+                                    }
+                                    // inserting clicked emoji into the password test array
+                                    $("#gridEmoji" + i).click(function() {
+                                        passwordTest.append("" + $(this).text());
+                                        passwordTestArray[passwordTestArray.length] = $(this).text();
+                                        testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                                    })
+                                }
+                            }
+
+
                           })
 
                           email.off('click').on('click', function() {
