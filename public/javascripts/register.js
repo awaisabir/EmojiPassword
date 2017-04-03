@@ -530,7 +530,7 @@ $(document).ready(() => {
                         gridTestArea.hide();
                         testPasswordRandoArray = [];
                         passwordTestArray = [];
-                        facebookGridArray = [];
+                        //facebookGridArray = [];
                         counter = 1;
                         global_state_cheker++;
                         if (global_state_cheker === 2) {
@@ -584,7 +584,7 @@ $(document).ready(() => {
                         gridTestArea.hide();
                         testPasswordRandoArray = [];
                         passwordTestArray = [];
-                        emailGridArray = [];
+                        //emailGridArray = [];
                         counter = 1;
                         global_state_cheker++;
                         if (global_state_cheker === 2) {
@@ -636,16 +636,16 @@ $(document).ready(() => {
                         facebookClicked = false;
                         emailClicked = false;
                         bankClicked = false;
-                        $('#instruct').html('');
+                        //$('#instruct').html('');
                         well.html('');
-                        grid.html('');
+                        //grid.html('');
                         textArea.val('');
                         passwordTest.html('');
                         writ_pass.hide();
                         gridTestArea.hide();
-                        testPasswordRandoArray = [];
-                        passwordTestArray = [];
-                        emailGridArray = [];
+                        //testPasswordRandoArray = [];
+                        //passwordTestArray = [];
+                        //emailGridArray = [];
                         counter = 1;
                         global_state_cheker++;
                         if (global_state_cheker === 2) {
@@ -659,11 +659,46 @@ $(document).ready(() => {
                               <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
                               <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
                               <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank-2">Bank</button></div>
-                            </div>
-                          `);
+                            </div>` +
+                            '<div class="row" id="gridTestArea-2">' +
+                            '<div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>' +
+                            '<div class="col-md-4 col-sm-4" id="inputArea-2" style="margin-top: 80px;">' +
+                            '<div id="instruct-2"></div>' +
+                            '<div id="passwordTest-2" class="well"></div>' +
+                            '<input id="textArea-2" class="form-control noresize"></input>' +
+                            '<div id="testButtons-2" class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword-2" type="button" class="btn btn-success">Check</button>' +
+                            '</div></div></div>');
+
 
                             $('#facebook-2').on('click', function() {
-                              console.log(facebookPassword);
+                                facebookClicked = true;
+                                console.log(facebookPassword);
+                                //$('.scheme-container').append('<div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>');
+                                $('#grid-2').append('<div id="gridInstruct-2" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                                // if facebook was clicked
+                                console.log(facebookGridArray);
+
+                                if (facebookClicked === true) {
+                                    $('#instruct-2').prepend('<div id="fbInstruct-2" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
+                                    // ------------------------ fb grid ----------------------------
+                                    for (let i = 0; i < facebookGridArray.length; i++) {
+                                        for (var emoji in facebookGridArray[i]) {
+                                            if (facebookGridArray[i].hasOwnProperty(emoji)) {
+                                                $('#grid-2').append("<div class='btn btn-default grid' id='gridEmoji-" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
+                                            }
+                                        }
+                                        // adding newline after printing 4 emojis to create 4 X 7 grid
+                                        if ((i + 1) % 7 === 0) {
+                                            $('#grid-2').append("<br/>");
+                                        }
+                                        // inserting clicked emoji into the password test array
+                                        $("#gridEmoji-" + i).click(function() {
+                                            $('#passwordTest-2').append("" + $(this).text());
+                                            passwordTestArray[passwordTestArray.length] = $(this).text();
+                                            testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                                        })
+                                    }
+                                }
                             })
 
                             $('#email-2').on('click', function() {
