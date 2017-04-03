@@ -20,9 +20,7 @@ $(document).ready(() => {
         if (user === "") {
             let currentdate = new Date();
             time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-            noty({
-                text: 'Enter a username!'
-            });
+            noty({text: 'Enter a username!'});
             $.post('/csv', {
                 time: time,
                 site: "N/A",
@@ -60,8 +58,8 @@ $(document).ready(() => {
                 '<div id="password" class="well"></div>' +
                 '<div id="written-password" class="well"></div>' +
                 '<div id="tryRow" class="row" style="margin-top: 50px;">' +
-                '<div style="margin-bottom: 20px; font-size: 18px;">Try your password below:</div>' +
-                '<button type="button" class="btn btn-success" id="try">Try</button></div>' +
+                '<div style="margin-bottom: 20px; font-size: 18px;" id="too">Validate your password below:</div>' +
+                '<button type="button" class="btn btn-success" id="try">Validate</button></div>' +
                 '</div>' +
                 '<div class="row" id="gridTestArea">' +
                 '<div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px; padding-top: 80px;"></div>' +
@@ -124,7 +122,6 @@ $(document).ready(() => {
             let passwordTestArray = []; // Contains the 5 test emojis for the password
             let pinTest = 0;
 
-
             facebook.click(() => {
                 if (counter === 1) {
                     randomTest.addClass("disabled");
@@ -175,7 +172,6 @@ $(document).ready(() => {
                 clear.removeClass("disabled");
             });
 
-
             email.click(() => {
                 if (counter === 1) {
                     randomTest.addClass("disabled");
@@ -225,7 +221,6 @@ $(document).ready(() => {
                 try_btn.removeClass("disabled");
                 clear.removeClass("disabled");
             });
-
 
             bank.click(() => {
                 if (counter === 1) {
@@ -284,7 +279,6 @@ $(document).ready(() => {
                 time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
 
             });
-
 
             // randomTest.click(() => {
             //     if (counter === 1) {
@@ -350,7 +344,6 @@ $(document).ready(() => {
             //     }
             // });
 
-
             // clear.click(() => {
             //     well.html('');
             //     randomTest.removeClass("disabled");
@@ -380,7 +373,6 @@ $(document).ready(() => {
             //     passwordTestArray = [];
             //     counter = 1;
             // });
-
 
             try_btn.click(() => {
                 // printing out the grid of emojis
@@ -513,9 +505,7 @@ $(document).ready(() => {
                     console.log(testPasswordRandoArray);
                     console.log(facebookRandoArray);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (duplicatesExists === false)) {
-                        noty({
-                            text: 'Password is a match!'
-                        });
+                        noty({text: 'Password is a match!'});
 
                         well.html('');
                         randomTest.removeClass("disabled");
@@ -543,36 +533,24 @@ $(document).ready(() => {
                         facebookGridArray = [];
                         counter = 1;
                         global_state_cheker++;
-                        if(global_state_cheker === 2) {
-                          $('#wee').html('Welcome to your <b>Password Testing Phase!/b>');
+                        if (global_state_cheker === 2) {
+                          $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
                           well.hide();
-                          $('.container').append('<div class="row" style="margin-top: 60px;">' +
-                              '<div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click one of the schemes below to generate a password:</div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook">Facebook</button></div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email">Email</button></div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank">Bank</button></div></div>' +
-                              '<div id="password" class="well"></div>' +
-                              '<div id="written-password" class="well"></div>' +
-                              '<div id="tryRow" class="row" style="margin-top: 50px;">' +
-                              '<div style="margin-bottom: 20px; font-size: 18px;">Try your password below:</div>' +
-                              '<button type="button" class="btn btn-success" id="try">Try</button></div>' +
-                              '</div>' +
-                              '<div class="row" id="gridTestArea">' +
-                              '<div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px; padding-top: 80px;"></div>' +
-                              '<div class="col-md-4 col-sm-4" id="inputArea" style="margin-top: 80px;">' +
-                              '<div id="instruct"></div>' +
-                              '<div id="passwordTest" class="well"></div>' +
-                              '<input id="textArea" class="form-control noresize"></input>' +
-                              '<div id="testButtons" class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword" type="button" class="btn btn-success">Check</button>' +
-                              '</div></div></div></div>');
+                          $('#too').hide();
+                          $('#try').hide();
+                          $('.container').append(`
+                          <div class="row" style="margin-top: 60px;">
+                            <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="bank-2">Bank</button></div>
+                          </div>
+                        `);
                         }
                     } else {
-                        noty({
-                            text: 'Password does not match!'
-                        });
+                        noty({text: 'Password does not match!'});
                     }
                 }
-
 
                 // check function for email
                 if (emailClicked === true) {
@@ -588,9 +566,7 @@ $(document).ready(() => {
                     console.log(testPasswordRandoArray);
                     console.log(emailRandoArray);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5)) {
-                        noty({
-                            text: 'Password is a match!'
-                        });
+                        noty({text: 'Password is a match!'});
                         // What Awais added
                         facebook.removeClass("disabled");
                         bank.removeClass("disabled");
@@ -611,36 +587,24 @@ $(document).ready(() => {
                         emailGridArray = [];
                         counter = 1;
                         global_state_cheker++;
-                        if(global_state_cheker === 2) {
-                          $('#wee').html('Welcome to your <b>Password Testing Phase!/b>');
+                        if (global_state_cheker === 2) {
+                          $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
                           well.hide();
-                          $('.container').append('<div class="row" style="margin-top: 60px;">' +
-                              '<div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click one of the schemes below to generate a password:</div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook">Facebook</button></div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email">Email</button></div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank">Bank</button></div></div>' +
-                              '<div id="password" class="well"></div>' +
-                              '<div id="written-password" class="well"></div>' +
-                              '<div id="tryRow" class="row" style="margin-top: 50px;">' +
-                              '<div style="margin-bottom: 20px; font-size: 18px;">Try your password below:</div>' +
-                              '<button type="button" class="btn btn-success" id="try">Try</button></div>' +
-                              '</div>' +
-                              '<div class="row" id="gridTestArea">' +
-                              '<div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px; padding-top: 80px;"></div>' +
-                              '<div class="col-md-4 col-sm-4" id="inputArea" style="margin-top: 80px;">' +
-                              '<div id="instruct"></div>' +
-                              '<div id="passwordTest" class="well"></div>' +
-                              '<input id="textArea" class="form-control noresize"></input>' +
-                              '<div id="testButtons" class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword" type="button" class="btn btn-success">Check</button>' +
-                              '</div></div></div></div>');
+                          $('#too').hide();
+                          $('#try').hide();
+                          $('.container').append(`
+                          <div class="row" style="margin-top: 60px;">
+                            <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="bank-2">Bank</button></div>
+                          </div>
+                        `);
                         }
                     } else {
-                        noty({
-                            text: 'Password does not match!'
-                        });
+                        noty({text: 'Password does not match!'});
                     }
                 }
-
 
                 // check function for bank
                 if (bankClicked === true) {
@@ -663,9 +627,7 @@ $(document).ready(() => {
                     console.log(pinTest);
                     console.log(bankPin);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (bankPinMatch === true)) {
-                        noty({
-                            text: 'Password is a match!'
-                        });
+                        noty({text: 'Password is a match!'});
 
                         email.removeClass("disabled");
                         facebook.removeClass("disabled");
@@ -686,36 +648,36 @@ $(document).ready(() => {
                         emailGridArray = [];
                         counter = 1;
                         global_state_cheker++;
-                        if(global_state_cheker === 2) {
-                          $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
-                          well.hide();
-                          $('.container').append('<div class="row" style="margin-top: 60px;">' +
-                              '<div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click one of the schemes below to generate a password:</div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook">Facebook</button></div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email">Email</button></div>' +
-                              '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank">Bank</button></div></div>' +
-                              '<div id="password" class="well"></div>' +
-                              '<div id="written-password" class="well"></div>' +
-                              '<div id="tryRow" class="row" style="margin-top: 50px;">' +
-                              '<div style="margin-bottom: 20px; font-size: 18px;">Try your password below:</div>' +
-                              '<button type="button" class="btn btn-success" id="try">Try</button></div>' +
-                              '</div>' +
-                              '<div class="row" id="gridTestArea">' +
-                              '<div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px; padding-top: 80px;"></div>' +
-                              '<div class="col-md-4 col-sm-4" id="inputArea" style="margin-top: 80px;">' +
-                              '<div id="instruct"></div>' +
-                              '<div id="passwordTest" class="well"></div>' +
-                              '<input id="textArea" class="form-control noresize"></input>' +
-                              '<div id="testButtons" class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword" type="button" class="btn btn-success">Check</button>' +
-                              '</div></div></div></div>');
+                        if (global_state_cheker === 2) {
+                            $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                            well.hide();
+                            $('#too').hide();
+                            $('#try').hide();
+                            $('.scheme-container').append(`
+                            <div class="row" style="margin-top: 60px;">
+                              <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
+                              <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
+                              <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
+                              <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank-2">Bank</button></div>
+                            </div>
+                          `);
+
+                            $('#facebook-2').on('click', function() {
+                              console.log(facebookPassword);
+                            })
+
+                            $('#email-2').on('click', function() {
+
+                            })
+
+                            $('#bank-2').on('click', function() {
+
+                            })
                         }
                     } else {
-                        noty({
-                            text: 'Password does not match!'
-                        });
+                        noty({text: 'Password does not match!'});
                     }
                 }
-
 
             });
 
