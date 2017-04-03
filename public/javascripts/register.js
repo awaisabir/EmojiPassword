@@ -634,9 +634,11 @@ $(document).ready(() => {
                           email.show();
                           bank.show();
                           bank.removeClass('disabled');
+                          well.hide();
+                          $('#tryRow').html('');
 
                           facebook.off('click').on('click', function() {
-                            console.log('This is the new FB handler');
+                            // MAKE GRID AND PASSWORD SHTI BUTTON HERE <<---------------------------------
                           })
 
                           email.off('click').on('click', function() {
