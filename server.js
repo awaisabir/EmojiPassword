@@ -12,7 +12,7 @@ let newLine = "\r\n";
 
 let app = express();
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended : true}));
 app.use(bodyParser.json());
 
 let arr = [];
@@ -28,8 +28,8 @@ let fields = [
 
 app.use(express.static(__dirname + '/public'));
 
-// Listen on port 3000
-app.listen(3000, () => {
+// Listen on port 3001
+app.listen(3001, () => {
 
     console.log("Server started.");
 });
