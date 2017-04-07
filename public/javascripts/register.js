@@ -12,7 +12,7 @@ $(document).ready(() => {
 
         if (user === "") {
             var cdate = new Date();
-            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
             noty({text: 'Enter a username!'});
             $.post('/csv', {
                 time: time,
@@ -28,7 +28,7 @@ $(document).ready(() => {
         } else {
 
             var cdate = new Date();
-            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
             $.post('/csv', {
                 time: time,
                 site: "N/A",
@@ -124,7 +124,7 @@ $(document).ready(() => {
 
             // post request for logging purposes
             var cdate = new Date();
-            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" +  cdate.getSeconds();
             $.post('/csv', {
                 time: time,
                 site: 'email',
@@ -142,7 +142,7 @@ $(document).ready(() => {
                 if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
                     var cdate = new Date();
-                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                     $.post('/csv', {
                         time: time,
                         site: "facebook",
@@ -185,7 +185,7 @@ $(document).ready(() => {
                 // --------------Entering the test phase-------------
                 if (testPhaseEntered === true) {
                     var cdate = new Date();
-                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                     $.post('/csv', {
                         time: time,
                         site: "facebook",
@@ -240,7 +240,7 @@ $(document).ready(() => {
                 if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
                     var cdate = new Date();
-                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                     $.post('/csv', {
                         time: time,
                         site: "email",
@@ -283,7 +283,7 @@ $(document).ready(() => {
                 // --------------Entering the test phase-------------
                 if (testPhaseEntered === true) {
                     var cdate = new Date();
-                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                     $.post('/csv', {
                         time: time,
                         site: "email",
@@ -339,7 +339,7 @@ $(document).ready(() => {
                 if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
                     var cdate = new Date();
-                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                     $.post('/csv', {
                         time: time,
                         site: "bank",
@@ -386,7 +386,7 @@ $(document).ready(() => {
                 // --------------Entering the test phase-------------
                 if (testPhaseEntered === true) {
                     var cdate = new Date();
-                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                     $.post('/csv', {
                         time: time,
                         site: "bank",
@@ -439,7 +439,7 @@ $(document).ready(() => {
                 clear.removeClass("disabled");
 
                 var cdate = new Date();
-                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
 
             });
 
@@ -577,7 +577,7 @@ $(document).ready(() => {
 
                             noty({text: 'Password is a match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'facebook',
@@ -639,11 +639,11 @@ $(document).ready(() => {
 
                             noty({text: 'Password is a match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
 
 
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'facebook',
@@ -703,7 +703,20 @@ $(document).ready(() => {
                                 });
                                 facebookTestCounter--;
                                 var cdate = new Date();
-                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'facebook',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'enter',
+                                    event: 'passwordSubmitted',
+                                    data: 'failure'
+                                }, (result) => {
+                                    console.log(result);
+                                });
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                                 $.post('/csv', {
                                     time: time,
                                     site: 'facebook',
@@ -720,7 +733,20 @@ $(document).ready(() => {
                             } else if (facebookTestCounter === 0) {
                                 noty({text: ('Password does not match! No more tries. Select another scheme.')});
                                 var cdate = new Date();
-                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'facebook',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'enter',
+                                    event: 'passwordSubmitted',
+                                    data: 'failure'
+                                }, (result) => {
+                                    console.log(result);
+                                });
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                                 $.post('/csv', {
                                     time: time,
                                     site: 'facebook',
@@ -757,7 +783,7 @@ $(document).ready(() => {
                             // Password not matching before test phase
                             noty({text: 'Password does not match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'facebook',
@@ -791,7 +817,7 @@ $(document).ready(() => {
                         if (testPhaseEntered === false) {
                             noty({text: 'Password is a match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'email',
@@ -839,7 +865,7 @@ $(document).ready(() => {
                         } else {
                             noty({text: 'Password is a match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'email',
@@ -853,7 +879,7 @@ $(document).ready(() => {
                             });
 
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'email',
@@ -904,7 +930,7 @@ $(document).ready(() => {
                     } else {
                         if (testPhaseEntered === true) {
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: "email",
@@ -917,7 +943,7 @@ $(document).ready(() => {
                                 console.log(result);
                             })
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: "email",
@@ -939,7 +965,20 @@ $(document).ready(() => {
                             } else if (emailTestCounter === 0) {
                                 noty({text: ('Password does not match! No more tries. Select another scheme.')});
                                 var cdate = new Date();
-                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'email',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'enter',
+                                    event: 'passwordSubmitted',
+                                    data: 'failure'
+                                }, (result) => {
+                                    console.log(result);
+                                });
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes()+ ":" + cdate.getSeconds();
                                 $.post('/csv', {
                                     time: time,
                                     site: 'email',
@@ -975,7 +1014,7 @@ $(document).ready(() => {
                         } else {
                             noty({text: 'Password does not match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'email',
@@ -1016,7 +1055,7 @@ $(document).ready(() => {
                         if (testPhaseEntered === false) {
                             noty({text: 'Password is a match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'bank',
@@ -1067,7 +1106,7 @@ $(document).ready(() => {
                         } else {
                             noty({text: 'Password is a match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'bank',
@@ -1081,7 +1120,7 @@ $(document).ready(() => {
                             });
 
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'bank',
@@ -1139,7 +1178,20 @@ $(document).ready(() => {
                                 });
                                 bankTestCounter--;
                                 var cdate = new Date();
-                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'bank',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'enter',
+                                    event: 'passwordSubmitted',
+                                    data: 'failure'
+                                }, (result) => {
+                                    console.log(result);
+                                });
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                                 $.post('/csv', {
                                     time: time,
                                     site: 'bank',
@@ -1155,7 +1207,20 @@ $(document).ready(() => {
                             } else if (bankTestCounter === 0) {
                                 noty({text: ('Password does not match! No more tries. Select another scheme.')});
                                 var cdate = new Date();
-                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'bank',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'enter',
+                                    event: 'passwordSubmitted',
+                                    data: 'failure'
+                                }, (result) => {
+                                    console.log(result);
+                                });
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                                 $.post('/csv', {
                                     time: time,
                                     site: 'bank',
@@ -1192,7 +1257,7 @@ $(document).ready(() => {
                         } else {
                             noty({text: 'Password does not match!'});
                             var cdate = new Date();
-                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes() + ":" + cdate.getSeconds();
                             $.post('/csv', {
                                 time: time,
                                 site: 'bank',
