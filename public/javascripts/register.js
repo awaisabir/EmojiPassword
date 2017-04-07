@@ -11,11 +11,9 @@ $(document).ready(() => {
         user = $('#username').val();
 
         if (user === "") {
-            let currentdate = new Date();
-            time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-            noty({
-                text: 'Enter a username!'
-            });
+            var cdate = new Date();
+            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+            noty({text: 'Enter a username!'});
             $.post('/csv', {
                 time: time,
                 site: "N/A",
@@ -29,8 +27,8 @@ $(document).ready(() => {
             });
         } else {
 
-            let currentdate = new Date();
-            time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+            var cdate = new Date();
+            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
             $.post('/csv', {
                 time: time,
                 site: "N/A",
@@ -90,7 +88,7 @@ $(document).ready(() => {
             try_btn.addClass("disabled");
             clear.addClass("disabled");
 
-            // iterator and important variables
+            // iterator and important letiables
             let counter = 1;
             let schemesTested = 0;
             let rando = 0;
@@ -125,7 +123,7 @@ $(document).ready(() => {
             let bankTestCounter = 2;
 
             // post request for logging purposes
-            let cdate = new Date();
+            var cdate = new Date();
             time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
             $.post('/csv', {
                 time: time,
@@ -143,8 +141,8 @@ $(document).ready(() => {
             facebook.click(() => {
                 if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
-                    let currentdate = new Date();
-                    time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                    var cdate = new Date();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
                     $.post('/csv', {
                         time: time,
                         site: "facebook",
@@ -173,7 +171,7 @@ $(document).ready(() => {
                             facebookRandoArray[j] = rando;
 
                             // uses the j-th element in facebookRandoArray to print the corresponding indexed emoji
-                            for (var emoji in facebookGridArray[facebookRandoArray[j]]) {
+                            for (let emoji in facebookGridArray[facebookRandoArray[j]]) {
                                 if (facebookGridArray[facebookRandoArray[j]].hasOwnProperty(emoji)) {
                                     well.append(facebookGridArray[facebookRandoArray[j]][emoji]);
                                     facebookPassword[j] = facebookGridArray[facebookRandoArray[j]][emoji];
@@ -186,6 +184,19 @@ $(document).ready(() => {
 
                 // --------------Entering the test phase-------------
                 if (testPhaseEntered === true) {
+                    var cdate = new Date();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    $.post('/csv', {
+                        time: time,
+                        site: "facebook",
+                        user: user,
+                        scheme: "emoji",
+                        mode: "enter",
+                        event: "start",
+                        data: "this is where the user entered the page load for login"
+                    }, (result) => {
+                        console.log(result);
+                    })
                     if (counter === 1) {
                         facebookClicked = true;
                         gridTestArea.show();
@@ -196,7 +207,7 @@ $(document).ready(() => {
                             $('#instruct').prepend('<div id="fbInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
                             // ------------------------ fb grid ----------------------------
                             for (let i = 0; i < facebookGridArray.length; i++) {
-                                for (var emoji in facebookGridArray[i]) {
+                                for (let emoji in facebookGridArray[i]) {
                                     if (facebookGridArray[i].hasOwnProperty(emoji)) {
                                         grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
                                     }
@@ -217,7 +228,6 @@ $(document).ready(() => {
                     }
                 }
 
-
                 facebook.addClass("disabled");
                 email.addClass("disabled");
                 bank.addClass("disabled");
@@ -229,8 +239,8 @@ $(document).ready(() => {
             email.click(() => {
                 if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
-                    let currentdate = new Date();
-                    time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                    var cdate = new Date();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
                     $.post('/csv', {
                         time: time,
                         site: "email",
@@ -259,7 +269,7 @@ $(document).ready(() => {
                             emailRandoArray[j] = rando;
 
                             // uses the j-th element in emailRandoArray to print the corresponding indexed emoji
-                            for (var emoji in emailGridArray[emailRandoArray[j]]) {
+                            for (let emoji in emailGridArray[emailRandoArray[j]]) {
                                 if (emailGridArray[emailRandoArray[j]].hasOwnProperty(emoji)) {
                                     well.append(emailGridArray[emailRandoArray[j]][emoji]);
                                     emailPassword[j] = emailGridArray[emailRandoArray[j]][emoji];
@@ -270,9 +280,21 @@ $(document).ready(() => {
                     counter++;
                 }
 
-
                 // --------------Entering the test phase-------------
                 if (testPhaseEntered === true) {
+                    var cdate = new Date();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    $.post('/csv', {
+                        time: time,
+                        site: "email",
+                        user: user,
+                        scheme: "emoji",
+                        mode: "enter",
+                        event: "start",
+                        data: "this is where the user entered the page load for login"
+                    }, (result) => {
+                        console.log(result);
+                    })
                     if (counter === 1) {
                         console.log('This is the new Email handler');
                         emailClicked = true;
@@ -283,7 +305,7 @@ $(document).ready(() => {
                             $('#instruct').prepend('<div id="emailInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password matters.)</div>');
                             // ------------------------ email grid ----------------------------
                             for (let i = 0; i < emailGridArray.length; i++) {
-                                for (var emoji in emailGridArray[i]) {
+                                for (let emoji in emailGridArray[i]) {
                                     if (emailGridArray[i].hasOwnProperty(emoji)) {
                                         grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + emailGridArray[i][emoji] + "</div>");
                                     }
@@ -313,10 +335,11 @@ $(document).ready(() => {
 
             // click event for bank button
             bank.click(() => {
+
                 if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
-                    let currentdate = new Date();
-                    time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                    var cdate = new Date();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
                     $.post('/csv', {
                         time: time,
                         site: "bank",
@@ -344,7 +367,7 @@ $(document).ready(() => {
                             bankRandoArray[j] = rando;
 
                             // uses the j-th element in bankRandoArray to print the corresponding indexed emoji
-                            for (var emoji in bankGridArray[bankRandoArray[j]]) {
+                            for (let emoji in bankGridArray[bankRandoArray[j]]) {
                                 if (bankGridArray[bankRandoArray[j]].hasOwnProperty(emoji)) {
                                     well.append(bankGridArray[bankRandoArray[j]][emoji]);
                                     bankPassword[j] = bankGridArray[bankRandoArray[j]][emoji];
@@ -360,9 +383,21 @@ $(document).ready(() => {
                     counter++;
                 }
 
-
                 // --------------Entering the test phase-------------
                 if (testPhaseEntered === true) {
+                    var cdate = new Date();
+                    time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                    $.post('/csv', {
+                        time: time,
+                        site: "bank",
+                        user: user,
+                        scheme: "emoji",
+                        mode: "enter",
+                        event: "start",
+                        data: "this is where the user entered the page load for login"
+                    }, (result) => {
+                        console.log(result);
+                    })
                     if (counter === 1) {
                         console.log('This is the new Bank handler');
                         bankClicked = true;
@@ -376,7 +411,7 @@ $(document).ready(() => {
                             textArea.show();
                             // ------------------------ bank grid ----------------------------
                             for (let i = 0; i < bankGridArray.length; i++) {
-                                for (var emoji in bankGridArray[i]) {
+                                for (let emoji in bankGridArray[i]) {
                                     if (bankGridArray[i].hasOwnProperty(emoji)) {
                                         grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + bankGridArray[i][emoji] + "</div>");
                                     }
@@ -397,15 +432,14 @@ $(document).ready(() => {
                     }
                 }
 
-
                 facebook.addClass("disabled");
                 email.addClass("disabled");
                 bank.addClass("disabled");
                 try_btn.removeClass("disabled");
                 clear.removeClass("disabled");
 
-                let currentdate = new Date();
-                time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                var cdate = new Date();
+                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
 
             });
 
@@ -426,7 +460,7 @@ $(document).ready(() => {
                         $('#instruct').prepend('<div id="fbInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
                         // ------------------------ fb grid ----------------------------
                         for (let i = 0; i < facebookGridArray.length; i++) {
-                            for (var emoji in facebookGridArray[i]) {
+                            for (let emoji in facebookGridArray[i]) {
                                 if (facebookGridArray[i].hasOwnProperty(emoji)) {
                                     grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
                                 }
@@ -449,7 +483,7 @@ $(document).ready(() => {
                         $('#instruct').prepend('<div id="emailInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password matters.)</div>');
                         // ------------------------ email grid ----------------------------
                         for (let i = 0; i < emailGridArray.length; i++) {
-                            for (var emoji in emailGridArray[i]) {
+                            for (let emoji in emailGridArray[i]) {
                                 if (emailGridArray[i].hasOwnProperty(emoji)) {
                                     grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + emailGridArray[i][emoji] + "</div>");
                                 }
@@ -475,7 +509,7 @@ $(document).ready(() => {
                         textArea.show();
                         // ------------------------ bank grid ----------------------------
                         for (let i = 0; i < bankGridArray.length; i++) {
-                            for (var emoji in bankGridArray[i]) {
+                            for (let emoji in bankGridArray[i]) {
                                 if (bankGridArray[i].hasOwnProperty(emoji)) {
                                     grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + bankGridArray[i][emoji] + "</div>");
                                 }
@@ -516,10 +550,10 @@ $(document).ready(() => {
 
                 // check function for facebook
                 if (facebookClicked === true) {
-                    for (var i = 0; i < testPasswordRandoArray.length; i++) {
+                    for (let i = 0; i < testPasswordRandoArray.length; i++) {
                         copies = 0;
                         // check for duplicates inside the test array
-                        for (var j = 0; j < testPasswordRandoArray.length; j++) {
+                        for (let j = 0; j < testPasswordRandoArray.length; j++) {
                             if (copies > 1) {
                                 duplicatesExists = true;
                                 break;
@@ -538,49 +572,49 @@ $(document).ready(() => {
                     console.log(testPasswordRandoArray);
                     console.log(facebookRandoArray);
                     if ((matchingCtr === 3) && (testPasswordRandoArray.length === 3) && (duplicatesExists === false)) {
-                        noty({
-                            text: 'Password is a match!'
-                        });
-                        let currentdate = new Date();
-                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                        $.post('/csv', {
-                            time: time,
-                            site: 'facebook',
-                            user: user,
-                            scheme: 'emoji',
-                            mode: 'create',
-                            event: 'pwtest',
-                            data: 'good'
-                        }, (result) => {
-                            console.log(result);
-                        });
-                        well.html('');
 
+                        if (testPhaseEntered === false) {
 
-                        email.removeClass("disabled");
-                        bank.removeClass("disabled");
-                        try_btn.addClass("disabled");
-                        facebook.hide();
-                        facebookClicked = false;
-                        emailClicked = false;
-                        bankClicked = false;
-                        $('#instruct').html('');
-                        grid.html('');
-                        textArea.val('');
-                        passwordTest.html('');
-                        writ_pass.hide();
-                        gridTestArea.hide();
-                        testPasswordRandoArray = [];
-                        passwordTestArray = [];
-                        //facebookGridArray = [];
-                        counter = 1;
-                        global_state_cheker++;
-                        if (global_state_cheker === 2) {
-                            $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
-                            well.hide();
-                            $('#too').hide();
-                            $('#try').hide();
-                            $('.container').append(`
+                            noty({text: 'Password is a match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'facebook',
+                                user: user,
+                                scheme: 'emoji',
+                                mode: 'create',
+                                event: 'pwtest',
+                                data: 'This is a good password for the validation phase'
+                            }, (result) => {
+                                console.log(result);
+                            });
+                            well.html('');
+
+                            email.removeClass("disabled");
+                            bank.removeClass("disabled");
+                            try_btn.addClass("disabled");
+                            facebook.hide();
+                            facebookClicked = false;
+                            emailClicked = false;
+                            bankClicked = false;
+                            $('#instruct').html('');
+                            grid.html('');
+                            textArea.val('');
+                            passwordTest.html('');
+                            writ_pass.hide();
+                            gridTestArea.hide();
+                            testPasswordRandoArray = [];
+                            passwordTestArray = [];
+                            //facebookGridArray = [];
+                            counter = 1;
+                            global_state_cheker++;
+                            if (global_state_cheker === 2) {
+                                $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                                well.hide();
+                                $('#too').hide();
+                                $('#try').hide();
+                                $('.container').append(`
                           <div class="row" style="margin-top: 60px;">
                             <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
                             <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
@@ -588,7 +622,76 @@ $(document).ready(() => {
                             <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="bank-2">Bank</button></div>
                           </div>
                         `);
+                            }
+
+                        } else {
+                          $.post('/csv', {
+                              time: time,
+                              site: 'facebook',
+                              user: user,
+                              scheme: 'emoji',
+                              mode: 'enter',
+                              event: 'passwordSubmitted',
+                              data: 'Password has been submitted'
+                          }, (result) => {
+                              console.log(result);
+                          });
+
+                            noty({text: 'Password is a match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+
+
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'facebook',
+                                user: user,
+                                scheme: 'emoji',
+                                mode: 'login',
+                                event: 'success',
+                                data: 'successfull password entered for the testing phase'
+                            }, (result) => {
+                                console.log(result);
+                            });
+                            well.html('');
+
+                            email.removeClass("disabled");
+                            bank.removeClass("disabled");
+                            try_btn.addClass("disabled");
+                            facebook.hide();
+                            facebookClicked = false;
+                            emailClicked = false;
+                            bankClicked = false;
+                            $('#instruct').html('');
+                            grid.html('');
+                            textArea.val('');
+                            passwordTest.html('');
+                            writ_pass.hide();
+                            gridTestArea.hide();
+                            testPasswordRandoArray = [];
+                            passwordTestArray = [];
+                            //facebookGridArray = [];
+                            counter = 1;
+                            global_state_cheker++;
+                            if (global_state_cheker === 2) {
+                                $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                                well.hide();
+                                $('#too').hide();
+                                $('#try').hide();
+                                $('.container').append(`
+                          <div class="row" style="margin-top: 60px;">
+                            <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
+                            <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="bank-2">Bank</button></div>
+                          </div>
+                        `);
+                            }
+
                         }
+
                     } else {
 
                         // password check for test phase
@@ -599,35 +702,33 @@ $(document).ready(() => {
                                     text: ('Password does not match! ' + facebookTestCounter + ' tries(try) left.')
                                 });
                                 facebookTestCounter--;
-                                let currentdate = new Date();
-                                time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
                                 $.post('/csv', {
                                     time: time,
                                     site: 'facebook',
                                     user: user,
                                     scheme: "emoji",
                                     mode: 'create',
-                                    event: 'pwtest',
-                                    data: 'bad'
+                                    event: 'login',
+                                    data: 'failure'
                                 }, (result) => {
                                     console.log(result);
                                 });
 
-                              // if user got password wrong three times
+                                // if user got password wrong three times
                             } else if (facebookTestCounter === 0) {
-                                noty({
-                                    text: ('Password does not match! No more tries. Select another scheme.')
-                                });
-                                let currentdate = new Date();
-                                time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                                noty({text: ('Password does not match! No more tries. Select another scheme.')});
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
                                 $.post('/csv', {
                                     time: time,
                                     site: 'facebook',
                                     user: user,
                                     scheme: "emoji",
-                                    mode: 'create',
-                                    event: 'pwtest',
-                                    data: 'bad'
+                                    mode: 'login',
+                                    event: 'failure',
+                                    data: 'Failed Login'
                                 }, (result) => {
                                     console.log(result);
                                 });
@@ -654,11 +755,9 @@ $(document).ready(() => {
 
                         } else {
                             // Password not matching before test phase
-                            noty({
-                                text: 'Password does not match!'
-                            });
-                            let currentdate = new Date();
-                            time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                            noty({text: 'Password does not match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
                             $.post('/csv', {
                                 time: time,
                                 site: 'facebook',
@@ -676,7 +775,7 @@ $(document).ready(() => {
 
                 // check function for email
                 if (emailClicked === true) {
-                    for (var i = 0; i < testPasswordRandoArray.length; i++) {
+                    for (let i = 0; i < testPasswordRandoArray.length; i++) {
 
                         // check how many matching emojis
                         if (testPasswordRandoArray[i] === emailRandoArray[i]) {
@@ -688,47 +787,109 @@ $(document).ready(() => {
                     console.log(testPasswordRandoArray);
                     console.log(emailRandoArray);
                     if ((matchingCtr === 3) && (testPasswordRandoArray.length === 3)) {
-                        noty({
-                            text: 'Password is a match!'
-                        });
-                        let currentdate = new Date();
-                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                        $.post('/csv', {
-                            time: time,
-                            site: 'email',
-                            user: user,
-                            scheme: "emoji",
-                            mode: 'create',
-                            event: 'pwtest',
-                            data: 'good'
-                        }, (result) => {
-                            console.log(result);
-                        });
-                        // What Awais added
-                        facebook.removeClass("disabled");
-                        bank.removeClass("disabled");
-                        try_btn.addClass("disabled");
-                        email.hide();
-                        facebookClicked = false;
-                        emailClicked = false;
-                        bankClicked = false;
-                        $('#instruct').html('');
-                        well.html('');
-                        grid.html('');
-                        textArea.val('');
-                        passwordTest.html('');
-                        writ_pass.hide();
-                        gridTestArea.hide();
-                        testPasswordRandoArray = [];
-                        passwordTestArray = [];
-                        counter = 1;
-                        global_state_cheker++;
-                        if (global_state_cheker === 2) {
-                            $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
-                            well.hide();
-                            $('#too').hide();
-                            $('#try').hide();
-                            $('.container').append(`
+
+                        if (testPhaseEntered === false) {
+                            noty({text: 'Password is a match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'email',
+                                user: user,
+                                scheme: "emoji",
+                                mode: 'create',
+                                event: 'pwtest',
+                                data: 'THis is a a good email password for the validation phase'
+                            }, (result) => {
+                                console.log(result);
+                            });
+                            // What Awais added
+                            facebook.removeClass("disabled");
+                            bank.removeClass("disabled");
+                            try_btn.addClass("disabled");
+                            email.hide();
+                            facebookClicked = false;
+                            emailClicked = false;
+                            bankClicked = false;
+                            $('#instruct').html('');
+                            well.html('');
+                            grid.html('');
+                            textArea.val('');
+                            passwordTest.html('');
+                            writ_pass.hide();
+                            gridTestArea.hide();
+                            testPasswordRandoArray = [];
+                            passwordTestArray = [];
+                            counter = 1;
+                            global_state_cheker++;
+                            if (global_state_cheker === 2) {
+                                $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                                well.hide();
+                                $('#too').hide();
+                                $('#try').hide();
+                                $('.container').append(`
+                              <div class="row" style="margin-top: 60px;">
+                                <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
+                                <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
+                                <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
+                                <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="bank-2">Bank</button></div>
+                              </div>
+                            `);
+                            }
+                        } else {
+                            noty({text: 'Password is a match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'email',
+                                user: user,
+                                scheme: "emoji",
+                                mode: 'enter',
+                                event: 'passwordSubmitted',
+                                data: 'Password submitted for testing'
+                            }, (result) => {
+                                console.log(result);
+                            });
+
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'email',
+                                user: user,
+                                scheme: "emoji",
+                                mode: 'login',
+                                event: 'success',
+                                data: 'the testing phase password for email is correct'
+                            }, (result) => {
+                                console.log(result);
+                            });
+                            // What Awais added
+                            facebook.removeClass("disabled");
+                            bank.removeClass("disabled");
+                            try_btn.addClass("disabled");
+                            email.hide();
+                            facebookClicked = false;
+                            emailClicked = false;
+                            bankClicked = false;
+                            $('#instruct').html('');
+                            well.html('');
+                            grid.html('');
+                            textArea.val('');
+                            passwordTest.html('');
+                            writ_pass.hide();
+                            gridTestArea.hide();
+                            testPasswordRandoArray = [];
+                            passwordTestArray = [];
+                            counter = 1;
+                            global_state_cheker++;
+                            if (global_state_cheker === 2) {
+                                $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                                well.hide();
+                                $('#too').hide();
+                                $('#try').hide();
+                                $('.container').append(`
                           <div class="row" style="margin-top: 60px;">
                             <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
                             <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
@@ -736,91 +897,103 @@ $(document).ready(() => {
                             <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="bank-2">Bank</button></div>
                           </div>
                         `);
+                            }
+
                         }
+
                     } else {
-                      if (testPhaseEntered === true) {
-                          if (emailTestCounter > 0) {
-                              console.log(emailTestCounter);
-                              noty({
-                                  text: ('Password does not match! ' + emailTestCounter + ' tries(try) left.')
-                              });
-                              emailTestCounter--;
-                              let currentdate = new Date();
-                              time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                              $.post('/csv', {
-                                  time: time,
-                                  site: 'email',
-                                  user: user,
-                                  scheme: "emoji",
-                                  mode: 'create',
-                                  event: 'pwtest',
-                                  data: 'bad'
-                              }, (result) => {
-                                  console.log(result);
-                              });
+                        if (testPhaseEntered === true) {
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: "email",
+                                user: user,
+                                scheme: "emoji",
+                                mode: "enter",
+                                event: "passwordSubmitted",
+                                data: "Email password submitted for testing"
+                            }, (result) => {
+                                console.log(result);
+                            })
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: "email",
+                                user: user,
+                                scheme: "emoji",
+                                mode: "login",
+                                event: "failure",
+                                data: "WRONG PASWORD FOR EMAI TESTING PHASE"
+                            }, (result) => {
+                                console.log(result);
+                            })
+                            if (emailTestCounter > 0) {
+                                console.log(emailTestCounter);
+                                noty({
+                                    text: ('Password does not match! ' + emailTestCounter + ' tries(try) left.')
+                                });
+                                emailTestCounter--;
 
-                          } else if (emailTestCounter === 0) {
-                              noty({
-                                  text: ('Password does not match! No more tries. Select another scheme.')
-                              });
-                              let currentdate = new Date();
-                              time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                              $.post('/csv', {
-                                  time: time,
-                                  site: 'email',
-                                  user: user,
-                                  scheme: "emoji",
-                                  mode: 'create',
-                                  event: 'pwtest',
-                                  data: 'bad'
-                              }, (result) => {
-                                  console.log(result);
-                              });
+                            } else if (emailTestCounter === 0) {
+                                noty({text: ('Password does not match! No more tries. Select another scheme.')});
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'email',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'login',
+                                    event: 'failure',
+                                    data: 'wrong login for email'
+                                }, (result) => {
+                                    console.log(result);
+                                });
 
-                              well.html('');
-                              facebook.removeClass("disabled");
-                              bank.removeClass("disabled");
-                              try_btn.addClass("disabled");
-                              email.hide();
-                              facebookClicked = false;
-                              emailClicked = false;
-                              bankClicked = false;
-                              $('#instruct').html('');
-                              grid.html('');
-                              textArea.val('');
-                              passwordTest.html('');
-                              writ_pass.hide();
-                              gridTestArea.hide();
-                              testPasswordRandoArray = [];
-                              passwordTestArray = [];
-                              //facebookGridArray = [];
-                              counter = 1;
-                          }
+                                well.html('');
+                                facebook.removeClass("disabled");
+                                bank.removeClass("disabled");
+                                try_btn.addClass("disabled");
+                                email.hide();
+                                facebookClicked = false;
+                                emailClicked = false;
+                                bankClicked = false;
+                                $('#instruct').html('');
+                                grid.html('');
+                                textArea.val('');
+                                passwordTest.html('');
+                                writ_pass.hide();
+                                gridTestArea.hide();
+                                testPasswordRandoArray = [];
+                                passwordTestArray = [];
+                                //facebookGridArray = [];
+                                counter = 1;
+                            }
 
-                      } else {
-                          noty({
-                              text: 'Password does not match!'
-                          });
-                          let currentdate = new Date();
-                          time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                          $.post('/csv', {
-                              time: time,
-                              site: 'email',
-                              user: user,
-                              scheme: "emoji",
-                              mode: 'create',
-                              event: 'pwtest',
-                              data: 'bad'
-                          }, (result) => {
-                              console.log(result);
-                          });
-                      }
+                        } else {
+                            noty({text: 'Password does not match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'email',
+                                user: user,
+                                scheme: "emoji",
+                                mode: 'create',
+                                event: 'pwtest',
+                                data: 'bad'
+                            }, (result) => {
+                                console.log(result);
+                            });
+                        }
                     }
                 }
 
                 // check function for bank
                 if (bankClicked === true) {
-                    for (var i = 0; i < testPasswordRandoArray.length; i++) {
+                    for (let i = 0; i < testPasswordRandoArray.length; i++) {
 
                         // check how many matching emojis
                         if (testPasswordRandoArray[i] === bankRandoArray[i]) {
@@ -839,136 +1012,199 @@ $(document).ready(() => {
                     console.log(pinTest);
                     console.log(bankPin);
                     if ((matchingCtr === 3) && (testPasswordRandoArray.length === 3) && (bankPinMatch === true)) {
-                        noty({
-                            text: 'Password is a match!'
-                        });
-                        let currentdate = new Date();
-                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                        $.post('/csv', {
-                            time: time,
-                            site: 'bank',
-                            user: user,
-                            scheme: 'emoji',
-                            mode: 'create',
-                            event: 'pwtest',
-                            data: 'good'
-                        }, (result) => {
-                            console.log(result);
-                        });
 
-                        email.removeClass("disabled");
-                        facebook.removeClass("disabled");
-                        try_btn.addClass("disabled");
-                        bank.hide();
-                        facebookClicked = false;
-                        emailClicked = false;
-                        bankClicked = false;
-                        $('#instruct').html('');
-                        well.html('');
-                        grid.html('');
-                        textArea.val('');
-                        textArea.hide();
-                        passwordTest.html('');
-                        writ_pass.hide();
-                        gridTestArea.hide();
-                        testPasswordRandoArray = [];
-                        passwordTestArray = [];
-                        //emailGridArray = [];
-                        counter = 1;
-                        global_state_cheker++;
-                        if (global_state_cheker === 2) {
+                        if (testPhaseEntered === false) {
+                            noty({text: 'Password is a match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'bank',
+                                user: user,
+                                scheme: 'emoji',
+                                mode: 'create',
+                                event: 'pwtest',
+                                data: 'good'
+                            }, (result) => {
+                                console.log(result);
+                            });
 
-                            facebook.show();
-                            email.show();
-                            bank.show();
-                            bank.removeClass('disabled');
-                            well.hide();
-                            grid.html('');
+                            email.removeClass("disabled");
+                            facebook.removeClass("disabled");
+                            try_btn.addClass("disabled");
+                            bank.hide();
+                            facebookClicked = false;
+                            emailClicked = false;
+                            bankClicked = false;
                             $('#instruct').html('');
-                            $('#tryRow').html('');
-                            $('#textArea').hide();
-                            testPhaseEntered = true;
+                            well.html('');
+                            grid.html('');
+                            textArea.val('');
+                            textArea.hide();
+                            passwordTest.html('');
+                            writ_pass.hide();
+                            gridTestArea.hide();
+                            testPasswordRandoArray = [];
+                            passwordTestArray = [];
+                            //emailGridArray = [];
+                            counter = 1;
+                            global_state_cheker++;
+                            if (global_state_cheker === 2) {
+
+                                facebook.show();
+                                email.show();
+                                bank.show();
+                                bank.removeClass('disabled');
+                                well.hide();
+                                grid.html('');
+                                $('#instruct').html('');
+                                $('#tryRow').html('');
+                                $('#textArea').hide();
+                                testPhaseEntered = true;
+
+                            }
+
+                        } else {
+                            noty({text: 'Password is a match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'bank',
+                                user: user,
+                                scheme: 'emoji',
+                                mode: 'enter',
+                                event: 'passwordSubmitted',
+                                data: 'bank password submitted for testing'
+                            }, (result) => {
+                                console.log(result);
+                            });
+
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'bank',
+                                user: user,
+                                scheme: 'emoji',
+                                mode: 'login',
+                                event: 'success',
+                                data: 'Bank password is right'
+                            }, (result) => {
+                                console.log(result);
+                            });
+
+                            email.removeClass("disabled");
+                            facebook.removeClass("disabled");
+                            try_btn.addClass("disabled");
+                            bank.hide();
+                            facebookClicked = false;
+                            emailClicked = false;
+                            bankClicked = false;
+                            $('#instruct').html('');
+                            well.html('');
+                            grid.html('');
+                            textArea.val('');
+                            textArea.hide();
+                            passwordTest.html('');
+                            writ_pass.hide();
+                            gridTestArea.hide();
+                            testPasswordRandoArray = [];
+                            passwordTestArray = [];
+                            //emailGridArray = [];
+                            counter = 1;
+                            global_state_cheker++;
+                            if (global_state_cheker === 2) {
+
+                                facebook.show();
+                                email.show();
+                                bank.show();
+                                bank.removeClass('disabled');
+                                well.hide();
+                                grid.html('');
+                                $('#instruct').html('');
+                                $('#tryRow').html('');
+                                $('#textArea').hide();
+                                testPhaseEntered = true;
+
+                            }
 
                         }
                     } else {
-                      if (testPhaseEntered === true) {
-                          if (bankTestCounter > 0) {
-                              console.log(bankTestCounter);
-                              noty({
-                                  text: ('Password does not match! ' + bankTestCounter + ' tries(try) left.')
-                              });
-                              bankTestCounter--;
-                              let currentdate = new Date();
-                              time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                              $.post('/csv', {
-                                  time: time,
-                                  site: 'bank',
-                                  user: user,
-                                  scheme: "emoji",
-                                  mode: 'create',
-                                  event: 'pwtest',
-                                  data: 'bad'
-                              }, (result) => {
-                                  console.log(result);
-                              });
+                        if (testPhaseEntered === true) {
+                            if (bankTestCounter > 0) {
+                                console.log(bankTestCounter);
+                                noty({
+                                    text: ('Password does not match! ' + bankTestCounter + ' tries(try) left.')
+                                });
+                                bankTestCounter--;
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'bank',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'login',
+                                    event: 'failure',
+                                    data: 'bank password entered s wrong'
+                                }, (result) => {
+                                    console.log(result);
+                                });
 
-                          } else if (bankTestCounter === 0) {
-                              noty({
-                                  text: ('Password does not match! No more tries. Select another scheme.')
-                              });
-                              let currentdate = new Date();
-                              time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                              $.post('/csv', {
-                                  time: time,
-                                  site: 'bank',
-                                  user: user,
-                                  scheme: "emoji",
-                                  mode: 'create',
-                                  event: 'pwtest',
-                                  data: 'bad'
-                              }, (result) => {
-                                  console.log(result);
-                              });
+                            } else if (bankTestCounter === 0) {
+                                noty({text: ('Password does not match! No more tries. Select another scheme.')});
+                                var cdate = new Date();
+                                time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'bank',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'login',
+                                    event: 'failure',
+                                    data: 'bank passwored entered here is wrong'
+                                }, (result) => {
+                                    console.log(result);
+                                });
 
-                              well.html('');
-                              email.removeClass("disabled");
-                              facebook.removeClass("disabled");
-                              try_btn.addClass("disabled");
-                              bank.hide();
-                              facebookClicked = false;
-                              emailClicked = false;
-                              bankClicked = false;
-                              $('#instruct').html('');
-                              grid.html('');
-                              textArea.hide();
-                              textArea.val('');
-                              passwordTest.html('');
-                              writ_pass.hide();
-                              gridTestArea.hide();
-                              testPasswordRandoArray = [];
-                              passwordTestArray = [];
-                              //facebookGridArray = [];
-                              counter = 1;
-                          }
+                                well.html('');
+                                email.removeClass("disabled");
+                                facebook.removeClass("disabled");
+                                try_btn.addClass("disabled");
+                                bank.hide();
+                                facebookClicked = false;
+                                emailClicked = false;
+                                bankClicked = false;
+                                $('#instruct').html('');
+                                grid.html('');
+                                textArea.hide();
+                                textArea.val('');
+                                passwordTest.html('');
+                                writ_pass.hide();
+                                gridTestArea.hide();
+                                testPasswordRandoArray = [];
+                                passwordTestArray = [];
+                                //facebookGridArray = [];
+                                counter = 1;
+                            }
 
-                      } else {
-                          noty({
-                              text: 'Password does not match!'
-                          });
-                          let currentdate = new Date();
-                          time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                          $.post('/csv', {
-                              time: time,
-                              site: 'bank',
-                              user: user,
-                              scheme: "emoji",
-                              mode: 'create',
-                              event: 'pwtest',
-                              data: 'bad'
-                          }, (result) => {
-                              console.log(result);
-                          });
-                      }
+                        } else {
+                            noty({text: 'Password does not match!'});
+                            var cdate = new Date();
+                            time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'bank',
+                                user: user,
+                                scheme: "emoji",
+                                mode: 'create',
+                                event: 'pwtest',
+                                data: 'bad'
+                            }, (result) => {
+                                console.log(result);
+                            });
+                        }
                     }
                 }
 
