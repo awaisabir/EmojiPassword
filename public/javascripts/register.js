@@ -20,7 +20,9 @@ $(document).ready(() => {
         if (user === "") {
             let currentdate = new Date();
             time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-            noty({text: 'Enter a username!'});
+            noty({
+                text: 'Enter a username!'
+            });
             $.post('/csv', {
                 time: time,
                 site: "N/A",
@@ -121,6 +123,14 @@ $(document).ready(() => {
             let passwordTestArray = []; // Contains the 5 test emojis for the password
             let pinTest = 0;
 
+            // ----------------- boolean for entering testPhase ------------------------
+            let testPhaseEntered = false
+
+            // ----------------- counter for wrong tries ------------------------------
+            let facebookTestCounter = 2;
+            let emailTestCounter = 2;
+            let bankTestCounter = 2;
+
             let cdate = new Date();
             time = cdate.getFullYear() + "-" + (cdate.getMonth() + 1) + "-" + cdate.getDate() + " " + cdate.getHours() + ":" + cdate.getMinutes();
             $.post('/csv', {
@@ -136,7 +146,7 @@ $(document).ready(() => {
             });
 
             facebook.click(() => {
-                if (counter === 1) {
+                if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
                     let currentdate = new Date();
                     time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
@@ -178,6 +188,41 @@ $(document).ready(() => {
                     });
                     counter++;
                 }
+
+                // --------------Entering the test phase-------------
+                if (testPhaseEntered === true) {
+                    if (counter === 1) {
+                        facebookClicked = true;
+                        gridTestArea.show();
+                        grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+
+                        // if facebook was clicked
+                        if (facebookClicked === true) {
+                            $('#instruct').prepend('<div id="fbInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
+                            // ------------------------ fb grid ----------------------------
+                            for (let i = 0; i < facebookGridArray.length; i++) {
+                                for (var emoji in facebookGridArray[i]) {
+                                    if (facebookGridArray[i].hasOwnProperty(emoji)) {
+                                        grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
+                                    }
+                                }
+                                // adding newline after printing 4 emojis to create 4 X 7 grid
+                                if ((i + 1) % 7 === 0) {
+                                    grid.append("<br/>");
+                                }
+                                // inserting clicked emoji into the password test array
+                                $("#gridEmoji" + i).click(function() {
+                                    passwordTest.append("" + $(this).text());
+                                    passwordTestArray[passwordTestArray.length] = $(this).text();
+                                    testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                                })
+                            }
+                        }
+                        counter++;
+                    }
+                }
+
+
                 facebook.addClass("disabled");
                 email.addClass("disabled");
                 bank.addClass("disabled");
@@ -186,7 +231,7 @@ $(document).ready(() => {
             });
 
             email.click(() => {
-                if (counter === 1) {
+                if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
                     let currentdate = new Date();
                     time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
@@ -228,6 +273,41 @@ $(document).ready(() => {
                     });
                     counter++;
                 }
+
+
+                // --------------Entering the test phase-------------
+                if (testPhaseEntered === true) {
+                    if (counter === 1) {
+                        console.log('This is the new Email handler');
+                        emailClicked = true;
+                        gridTestArea.show();
+                        grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                        // if email was clicked
+                        if (emailClicked === true) {
+                            $('#instruct').prepend('<div id="emailInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password matters.)</div>');
+                            // ------------------------ email grid ----------------------------
+                            for (let i = 0; i < emailGridArray.length; i++) {
+                                for (var emoji in emailGridArray[i]) {
+                                    if (emailGridArray[i].hasOwnProperty(emoji)) {
+                                        grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + emailGridArray[i][emoji] + "</div>");
+                                    }
+                                }
+                                // adding newline after printing 4 emojis to create 4 X 7 grid
+                                if ((i + 1) % 7 === 0) {
+                                    grid.append("<br/>");
+                                }
+                                // inserting clicked emoji into the password test array
+                                $("#gridEmoji" + i).click(function() {
+                                    passwordTest.append("" + $(this).text());
+                                    passwordTestArray[passwordTestArray.length] = $(this).text();
+                                    testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                                })
+                            }
+                        }
+                        counter++;
+                    }
+                }
+
                 facebook.addClass("disabled");
                 email.addClass("disabled");
                 bank.addClass("disabled");
@@ -236,7 +316,7 @@ $(document).ready(() => {
             });
 
             bank.click(() => {
-                if (counter === 1) {
+                if ((counter === 1) && (testPhaseEntered === false)) {
                     randomTest.addClass("disabled");
                     let currentdate = new Date();
                     time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
@@ -282,6 +362,45 @@ $(document).ready(() => {
                     bankPin = random;
                     counter++;
                 }
+
+
+                // --------------Entering the test phase-------------
+                if (testPhaseEntered === true) {
+                    if (counter === 1) {
+                        console.log('This is the new Bank handler');
+                        bankClicked = true;
+                        gridTestArea.show();
+                        grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+
+                        if (bankClicked === false) {
+                            textArea.hide();
+                        } else {
+                            $('#instruct').prepend('<div id="bankInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password and PIN matters.)</div>');
+                            textArea.show();
+                            // ------------------------ bank grid ----------------------------
+                            for (let i = 0; i < bankGridArray.length; i++) {
+                                for (var emoji in bankGridArray[i]) {
+                                    if (bankGridArray[i].hasOwnProperty(emoji)) {
+                                        grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + bankGridArray[i][emoji] + "</div>");
+                                    }
+                                }
+                                // adding newline after printing 4 emojis to create 4 X 7 grid
+                                if ((i + 1) % 7 === 0) {
+                                    grid.append("<br/>");
+                                }
+                                // inserting clicked emoji into the password test array
+                                $("#gridEmoji" + i).click(function() {
+                                    passwordTest.append("" + $(this).text());
+                                    passwordTestArray[passwordTestArray.length] = $(this).text();
+                                    testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                                })
+                            }
+                        }
+                        counter++;
+                    }
+                }
+
+
                 facebook.addClass("disabled");
                 email.addClass("disabled");
                 bank.addClass("disabled");
@@ -421,7 +540,9 @@ $(document).ready(() => {
                     console.log(testPasswordRandoArray);
                     console.log(facebookRandoArray);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (duplicatesExists === false)) {
-                        noty({text: 'Password is a match!'});
+                        noty({
+                            text: 'Password is a match!'
+                        });
                         let currentdate = new Date();
                         time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
                         $.post('/csv', {
@@ -436,11 +557,11 @@ $(document).ready(() => {
                             console.log(result);
                         });
                         well.html('');
-                        randomTest.removeClass("disabled");
+                        //randomTest.removeClass("disabled");
                         //randomTestBegun === false;
-                        if ((facebookPassword.length === 5) && (emailPassword.length === 5) && (bankPassword.length === 5)) {
-                            randomTestBegun = true;
-                        }
+                        // if ((facebookPassword.length === 5) && (emailPassword.length === 5) && (bankPassword.length === 5)) {
+                        //     randomTestBegun = true;
+                        // }
 
                         // What Awais added
                         email.removeClass("disabled");
@@ -476,20 +597,84 @@ $(document).ready(() => {
                         `);
                         }
                     } else {
-                        noty({text: 'Password does not match!'});
-                        let currentdate = new Date();
-                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                        $.post('/csv', {
-                            time: time,
-                            site: 'facebook',
-                            user: user,
-                            scheme: "emoji",
-                            mode: 'create',
-                            event: 'pwtest',
-                            data: 'bad'
-                        }, (result) => {
-                            console.log(result);
-                        });
+
+                        if (testPhaseEntered === true) {
+                            if (facebookTestCounter > 0) {
+                                console.log(facebookTestCounter);
+                                noty({
+                                    text: ('Password does not match! ' + facebookTestCounter + ' tries(try) left.')
+                                });
+                                facebookTestCounter--;
+                                let currentdate = new Date();
+                                time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'facebook',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'create',
+                                    event: 'pwtest',
+                                    data: 'bad'
+                                }, (result) => {
+                                    console.log(result);
+                                });
+
+                            } else if (facebookTestCounter === 0) {
+                                noty({
+                                    text: ('Password does not match! No more tries. Select another scheme.')
+                                });
+                                let currentdate = new Date();
+                                time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                                $.post('/csv', {
+                                    time: time,
+                                    site: 'facebook',
+                                    user: user,
+                                    scheme: "emoji",
+                                    mode: 'create',
+                                    event: 'pwtest',
+                                    data: 'bad'
+                                }, (result) => {
+                                    console.log(result);
+                                });
+
+                                well.html('');
+                                email.removeClass("disabled");
+                                bank.removeClass("disabled");
+                                try_btn.addClass("disabled");
+                                facebook.hide();
+                                facebookClicked = false;
+                                emailClicked = false;
+                                bankClicked = false;
+                                $('#instruct').html('');
+                                grid.html('');
+                                textArea.val('');
+                                passwordTest.html('');
+                                writ_pass.hide();
+                                gridTestArea.hide();
+                                testPasswordRandoArray = [];
+                                passwordTestArray = [];
+                                //facebookGridArray = [];
+                                counter = 1;
+                            }
+
+                        } else {
+                            noty({
+                                text: 'Password does not match!'
+                            });
+                            let currentdate = new Date();
+                            time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                            $.post('/csv', {
+                                time: time,
+                                site: 'facebook',
+                                user: user,
+                                scheme: "emoji",
+                                mode: 'create',
+                                event: 'pwtest',
+                                data: 'bad'
+                            }, (result) => {
+                                console.log(result);
+                            });
+                        }
                     }
                 }
 
@@ -507,7 +692,9 @@ $(document).ready(() => {
                     console.log(testPasswordRandoArray);
                     console.log(emailRandoArray);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5)) {
-                        noty({text: 'Password is a match!'});
+                        noty({
+                            text: 'Password is a match!'
+                        });
                         let currentdate = new Date();
                         time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
                         $.post('/csv', {
@@ -556,20 +743,83 @@ $(document).ready(() => {
                         `);
                         }
                     } else {
-                        noty({text: 'Password does not match!'});
-                        let currentdate = new Date();
-                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                        $.post('/csv', {
-                            time: time,
-                            site: 'email',
-                            user: user,
-                            scheme: 'emoji',
-                            mode: 'create',
-                            event: 'pwtest',
-                            data: 'bad'
-                        }, (result) => {
-                            console.log(result);
-                        });
+                      if (testPhaseEntered === true) {
+                          if (emailTestCounter > 0) {
+                              console.log(emailTestCounter);
+                              noty({
+                                  text: ('Password does not match! ' + emailTestCounter + ' tries(try) left.')
+                              });
+                              emailTestCounter--;
+                              let currentdate = new Date();
+                              time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                              $.post('/csv', {
+                                  time: time,
+                                  site: 'email',
+                                  user: user,
+                                  scheme: "emoji",
+                                  mode: 'create',
+                                  event: 'pwtest',
+                                  data: 'bad'
+                              }, (result) => {
+                                  console.log(result);
+                              });
+
+                          } else if (emailTestCounter === 0) {
+                              noty({
+                                  text: ('Password does not match! No more tries. Select another scheme.')
+                              });
+                              let currentdate = new Date();
+                              time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                              $.post('/csv', {
+                                  time: time,
+                                  site: 'email',
+                                  user: user,
+                                  scheme: "emoji",
+                                  mode: 'create',
+                                  event: 'pwtest',
+                                  data: 'bad'
+                              }, (result) => {
+                                  console.log(result);
+                              });
+
+                              well.html('');
+                              facebook.removeClass("disabled");
+                              bank.removeClass("disabled");
+                              try_btn.addClass("disabled");
+                              email.hide();
+                              facebookClicked = false;
+                              emailClicked = false;
+                              bankClicked = false;
+                              $('#instruct').html('');
+                              grid.html('');
+                              textArea.val('');
+                              passwordTest.html('');
+                              writ_pass.hide();
+                              gridTestArea.hide();
+                              testPasswordRandoArray = [];
+                              passwordTestArray = [];
+                              //facebookGridArray = [];
+                              counter = 1;
+                          }
+
+                      } else {
+                          noty({
+                              text: 'Password does not match!'
+                          });
+                          let currentdate = new Date();
+                          time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                          $.post('/csv', {
+                              time: time,
+                              site: 'email',
+                              user: user,
+                              scheme: "emoji",
+                              mode: 'create',
+                              event: 'pwtest',
+                              data: 'bad'
+                          }, (result) => {
+                              console.log(result);
+                          });
+                      }
                     }
                 }
 
@@ -594,7 +844,9 @@ $(document).ready(() => {
                     console.log(pinTest);
                     console.log(bankPin);
                     if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (bankPinMatch === true)) {
-                        noty({text: 'Password is a match!'});
+                        noty({
+                            text: 'Password is a match!'
+                        });
                         let currentdate = new Date();
                         time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
                         $.post('/csv', {
@@ -616,10 +868,11 @@ $(document).ready(() => {
                         facebookClicked = false;
                         emailClicked = false;
                         bankClicked = false;
-                        //$('#instruct').html('');
+                        $('#instruct').html('');
                         well.html('');
-                        //grid.html('');
+                        grid.html('');
                         textArea.val('');
+                        textArea.hide();
                         passwordTest.html('');
                         writ_pass.hide();
                         gridTestArea.hide();
@@ -630,232 +883,297 @@ $(document).ready(() => {
                         global_state_cheker++;
                         if (global_state_cheker === 2) {
 
-                          facebook.show();
-                          email.show();
-                          bank.show();
-                          bank.removeClass('disabled');
-                          well.hide();
-                          grid.html('');
-                          $('#instruct').html('');
-                          $('#tryRow').html('');
-                          $('#textArea').hide();
+                            facebook.show();
+                            email.show();
+                            bank.show();
+                            bank.removeClass('disabled');
+                            well.hide();
+                            grid.html('');
+                            $('#instruct').html('');
+                            $('#tryRow').html('');
+                            $('#textArea').hide();
+                            testPhaseEntered = true;
 
 
-                          facebook.off('click').on('click', function() {
-                            // MAKE GRID AND PASSWORD SHTI BUTTON HERE <<---------------------------------
-                              if (counter === 1) {
-                              facebookClicked = true;
-                              gridTestArea.show();
-                              grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                            // facebook.off('click').on('click', function() {
+                            //   // MAKE GRID AND PASSWORD SHTI BUTTON HERE <<---------------------------------
+                            //     if (counter === 1) {
+                            //     facebookClicked = true;
+                            //     gridTestArea.show();
+                            //     grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                            //
+                            //     // if facebook was clicked
+                            //     if (facebookClicked === true) {
+                            //         $('#instruct').prepend('<div id="fbInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
+                            //         // ------------------------ fb grid ----------------------------
+                            //         for (let i = 0; i < facebookGridArray.length; i++) {
+                            //             for (var emoji in facebookGridArray[i]) {
+                            //                 if (facebookGridArray[i].hasOwnProperty(emoji)) {
+                            //                     grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
+                            //                 }
+                            //             }
+                            //             // adding newline after printing 4 emojis to create 4 X 7 grid
+                            //             if ((i + 1) % 7 === 0) {
+                            //                 grid.append("<br/>");
+                            //             }
+                            //             // inserting clicked emoji into the password test array
+                            //             $("#gridEmoji" + i).click(function() {
+                            //                 passwordTest.append("" + $(this).text());
+                            //                 passwordTestArray[passwordTestArray.length] = $(this).text();
+                            //                 testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                            //             })
+                            //         }
+                            //     }
+                            //     counter++;
+                            //   }
+                            // })
 
-                              // if facebook was clicked
-                              if (facebookClicked === true) {
-                                  $('#instruct').prepend('<div id="fbInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
-                                  // ------------------------ fb grid ----------------------------
-                                  for (let i = 0; i < facebookGridArray.length; i++) {
-                                      for (var emoji in facebookGridArray[i]) {
-                                          if (facebookGridArray[i].hasOwnProperty(emoji)) {
-                                              grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
-                                          }
-                                      }
-                                      // adding newline after printing 4 emojis to create 4 X 7 grid
-                                      if ((i + 1) % 7 === 0) {
-                                          grid.append("<br/>");
-                                      }
-                                      // inserting clicked emoji into the password test array
-                                      $("#gridEmoji" + i).click(function() {
-                                          passwordTest.append("" + $(this).text());
-                                          passwordTestArray[passwordTestArray.length] = $(this).text();
-                                          testPasswordRandoArray[testPasswordRandoArray.length] = i;
-                                      })
-                                  }
-                              }
-                              counter++;
-                            }
-                          })
+                            // email.off('click').on('click', function() {
+                            //   if (counter === 1) {
+                            //     console.log('This is the new Email handler');
+                            //     emailClicked = true;
+                            //     gridTestArea.show();
+                            //     grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                            //     // if email was clicked
+                            //     if (emailClicked === true) {
+                            //         $('#instruct').prepend('<div id="emailInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password matters.)</div>');
+                            //         // ------------------------ email grid ----------------------------
+                            //         for (let i = 0; i < emailGridArray.length; i++) {
+                            //             for (var emoji in emailGridArray[i]) {
+                            //                 if (emailGridArray[i].hasOwnProperty(emoji)) {
+                            //                     grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + emailGridArray[i][emoji] + "</div>");
+                            //                 }
+                            //             }
+                            //             // adding newline after printing 4 emojis to create 4 X 7 grid
+                            //             if ((i + 1) % 7 === 0) {
+                            //                 grid.append("<br/>");
+                            //             }
+                            //             // inserting clicked emoji into the password test array
+                            //             $("#gridEmoji" + i).click(function() {
+                            //                 passwordTest.append("" + $(this).text());
+                            //                 passwordTestArray[passwordTestArray.length] = $(this).text();
+                            //                 testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                            //             })
+                            //         }
+                            //     }
+                            //     counter++;
+                            //   }
+                            // })
 
-                          email.off('click').on('click', function() {
-                            if (counter === 1) {
-                              console.log('This is the new Email handler');
-                              emailClicked = true;
-                              gridTestArea.show();
-                              grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
-                              // if email was clicked
-                              if (emailClicked === true) {
-                                  $('#instruct').prepend('<div id="emailInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password matters.)</div>');
-                                  // ------------------------ email grid ----------------------------
-                                  for (let i = 0; i < emailGridArray.length; i++) {
-                                      for (var emoji in emailGridArray[i]) {
-                                          if (emailGridArray[i].hasOwnProperty(emoji)) {
-                                              grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + emailGridArray[i][emoji] + "</div>");
-                                          }
-                                      }
-                                      // adding newline after printing 4 emojis to create 4 X 7 grid
-                                      if ((i + 1) % 7 === 0) {
-                                          grid.append("<br/>");
-                                      }
-                                      // inserting clicked emoji into the password test array
-                                      $("#gridEmoji" + i).click(function() {
-                                          passwordTest.append("" + $(this).text());
-                                          passwordTestArray[passwordTestArray.length] = $(this).text();
-                                          testPasswordRandoArray[testPasswordRandoArray.length] = i;
-                                      })
-                                  }
-                              }
-                              counter++;
-                            }
-                          })
-
-                          bank.off('click').on('click', function() {
-                            if (counter === 1) {
-                              console.log('This is the new Bank handler');
-                              bankClicked = true;
-                              gridTestArea.show();
-                              grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
-
-                              if (bankClicked === false) {
-                                  textArea.hide();
-                              } else {
-                                  $('#instruct').prepend('<div id="bankInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password and PIN matters.)</div>');
-                                  textArea.show();
-                                  // ------------------------ bank grid ----------------------------
-                                  for (let i = 0; i < bankGridArray.length; i++) {
-                                      for (var emoji in bankGridArray[i]) {
-                                          if (bankGridArray[i].hasOwnProperty(emoji)) {
-                                              grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + bankGridArray[i][emoji] + "</div>");
-                                          }
-                                      }
-                                      // adding newline after printing 4 emojis to create 4 X 7 grid
-                                      if ((i + 1) % 7 === 0) {
-                                          grid.append("<br/>");
-                                      }
-                                      // inserting clicked emoji into the password test array
-                                      $("#gridEmoji" + i).click(function() {
-                                          passwordTest.append("" + $(this).text());
-                                          passwordTestArray[passwordTestArray.length] = $(this).text();
-                                          testPasswordRandoArray[testPasswordRandoArray.length] = i;
-                                      })
-                                  }
-                              }
-                              counter++;
-                            }
-                          })
-                          //   $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
-                          //   well.hide();
-                          //   $('#too').hide();
-                          //   $('#try').hide();
-                          //   $('.scheme-container').append(`
-                          //   <div class="row" style="margin-top: 60px;">
-                          //     <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
-                          //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
-                          //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
-                          //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank-2">Bank</button></div>
-                          //   </div>
-                          //   <div class="row" id="gridTestArea-2">
-                          //   <div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>
-                          //   <div class="col-md-4 col-sm-4" id="inputArea-2" style="margin-top: 80px;">
-                          //   <div id="instruct-2"></div>
-                          //   <div id="passwordTest-2" class="well"></div>
-                          //   <input id="textArea-2" class="form-control noresize"></input>
-                          //   <div id="testButtons-2" class="row"><button id="clearPasswordTest-2" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword-2" type="button" class="btn btn-success">Check</button>
-                          // </div></div></div>`);
-                          //
-                          //   $('#facebook-2').on('click', function() {
-                          //
-                          //
-                          //       facebookClicked = true;
-                          //       // console.log(facebookPassword);
-                          //       //$('.scheme-container').append('<div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>');
-                          //       $('#grid-2').append('<div id="gridInstruct-2" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
-                          //       // if facebook was clicked
-                          //       // console.log(facebookGridArray);
-                          //
-                          //       if (facebookClicked === true) {
-                          //           $('#instruct-2').prepend('<div id="fbInstruct-2" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
-                          //           // ------------------------ fb grid ----------------------------
-                          //           for (let i = 0; i < facebookGridArray.length; i++) {
-                          //               for (var emoji in facebookGridArray[i]) {
-                          //                   if (facebookGridArray[i].hasOwnProperty(emoji)) {
-                          //                       $('#grid-2').append("<div class='btn btn-default grid' id='gridEmoji-" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
-                          //                   }
-                          //               }
-                          //               // adding newline after printing 4 emojis to create 4 X 7 grid
-                          //               if ((i + 1) % 7 === 0) {
-                          //                   $('#grid-2').append("<br/>");
-                          //               }
-                          //               // inserting clicked emoji into the password test array
-                          //               $("#gridEmoji-" + i).click(function() {
-                          //                   $('#passwordTest-2').append("" + $(this).text());
-                          //                   passwordTestArray[passwordTestArray.length] = $(this).text();
-                          //                   testPasswordRandoArray[testPasswordRandoArray.length] = i;
-                          //               })
-                          //           }
-                          //       }
-                          //
-                          //       $('#clearPasswordTest-2').on('click', function() {
-                          //           $('#passwordTest-2').html('');
-                          //       })
-                          //
-                          //       $('#checkPassword-2').on('click', function() {
-                          //         let matchingCtr = 0;
-                          //         let copies = 0;
-                          //         let duplicatesExists = false;
-                          //         let bankPinMatch = false;
-                          //
-                          //
-                          //           for (var i = 0; i < testPasswordRandoArray.length; i++) {
-                          //               copies = 0;
-                          //               // check for duplicates inside the test array
-                          //               for (var j = 0; j < testPasswordRandoArray.length; j++) {
-                          //                   if (copies > 1) {
-                          //                       duplicatesExists = true;
-                          //                       break;
-                          //                   }
-                          //                   if (testPasswordRandoArray[i] === testPasswordRandoArray[j]) {
-                          //                       copies++;
-                          //                   }
-                          //               }
-                          //               // check how many matching emojis
-                          //               if (jQuery.inArray(testPasswordRandoArray[i], facebookRandoArray) !== -1) {
-                          //                   matchingCtr++;
-                          //               } else {
-                          //                   matchingCtr--;
-                          //               }
-                          //           }
-                          //
-                          //           console.log(testPasswordRandoArray);
-                          //           console.log(facebookRandoArray);
-                          //           if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (duplicatesExists === false)) {
-                          //               noty({text: 'Password is a match!'});
-                          //
-                          //               //randomTestBegun === false;
-                          //               if ((facebookPassword.length === 5) && (emailPassword.length === 5) && (bankPassword.length === 5)) {
-                          //                   randomTestBegun = true;
-                          //               }
-                          //           }
-                          //
-                          //       })
-                          //   })
-                          //
-                          //   $('#email-2').on('click', function() {})
-                          //
-                          //   $('#bank-2').on('click', function() {})
+                            // bank.off('click').on('click', function() {
+                            //   if (counter === 1) {
+                            //     console.log('This is the new Bank handler');
+                            //     bankClicked = true;
+                            //     gridTestArea.show();
+                            //     grid.append('<div id="gridInstruct" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                            //
+                            //     if (bankClicked === false) {
+                            //         textArea.hide();
+                            //     } else {
+                            //         $('#instruct').prepend('<div id="bankInstruct" style="margin-bottom: 20px; font-size: 18px;">(Order of password and PIN matters.)</div>');
+                            //         textArea.show();
+                            //         // ------------------------ bank grid ----------------------------
+                            //         for (let i = 0; i < bankGridArray.length; i++) {
+                            //             for (var emoji in bankGridArray[i]) {
+                            //                 if (bankGridArray[i].hasOwnProperty(emoji)) {
+                            //                     grid.append("<div class='btn btn-default grid' id='gridEmoji" + i + "'>" + bankGridArray[i][emoji] + "</div>");
+                            //                 }
+                            //             }
+                            //             // adding newline after printing 4 emojis to create 4 X 7 grid
+                            //             if ((i + 1) % 7 === 0) {
+                            //                 grid.append("<br/>");
+                            //             }
+                            //             // inserting clicked emoji into the password test array
+                            //             $("#gridEmoji" + i).click(function() {
+                            //                 passwordTest.append("" + $(this).text());
+                            //                 passwordTestArray[passwordTestArray.length] = $(this).text();
+                            //                 testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                            //             })
+                            //         }
+                            //     }
+                            //     counter++;
+                            //   }
+                            // })
+                            //   $('#wee').html('Welcome to your <b>Password Testing Phase!</b><br /> Pick a scheme');
+                            //   well.hide();
+                            //   $('#too').hide();
+                            //   $('#try').hide();
+                            //   $('.scheme-container').append(`
+                            //   <div class="row" style="margin-top: 60px;">
+                            //     <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click on any scheme to test the passwords</div>
+                            //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook-2">Facebook</button></div>
+                            //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email-2">Email</button></div>
+                            //     <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank-2">Bank</button></div>
+                            //   </div>
+                            //   <div class="row" id="gridTestArea-2">
+                            //   <div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>
+                            //   <div class="col-md-4 col-sm-4" id="inputArea-2" style="margin-top: 80px;">
+                            //   <div id="instruct-2"></div>
+                            //   <div id="passwordTest-2" class="well"></div>
+                            //   <input id="textArea-2" class="form-control noresize"></input>
+                            //   <div id="testButtons-2" class="row"><button id="clearPasswordTest-2" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword-2" type="button" class="btn btn-success">Check</button>
+                            // </div></div></div>`);
+                            //
+                            //   $('#facebook-2').on('click', function() {
+                            //
+                            //
+                            //       facebookClicked = true;
+                            //       // console.log(facebookPassword);
+                            //       //$('.scheme-container').append('<div class="col-md-8 col-sm-8" id="grid-2" style="margin-bottom: 100px; padding-top: 80px;"></div>');
+                            //       $('#grid-2').append('<div id="gridInstruct-2" style="margin-bottom: 20px; font-size: 18px;">Click the tiles corresponding to your password:</div>');
+                            //       // if facebook was clicked
+                            //       // console.log(facebookGridArray);
+                            //
+                            //       if (facebookClicked === true) {
+                            //           $('#instruct-2').prepend('<div id="fbInstruct-2" style="margin-bottom: 20px; font-size: 18px;">(Order of password does NOT matter.)</div>');
+                            //           // ------------------------ fb grid ----------------------------
+                            //           for (let i = 0; i < facebookGridArray.length; i++) {
+                            //               for (var emoji in facebookGridArray[i]) {
+                            //                   if (facebookGridArray[i].hasOwnProperty(emoji)) {
+                            //                       $('#grid-2').append("<div class='btn btn-default grid' id='gridEmoji-" + i + "'>" + facebookGridArray[i][emoji] + "</div>");
+                            //                   }
+                            //               }
+                            //               // adding newline after printing 4 emojis to create 4 X 7 grid
+                            //               if ((i + 1) % 7 === 0) {
+                            //                   $('#grid-2').append("<br/>");
+                            //               }
+                            //               // inserting clicked emoji into the password test array
+                            //               $("#gridEmoji-" + i).click(function() {
+                            //                   $('#passwordTest-2').append("" + $(this).text());
+                            //                   passwordTestArray[passwordTestArray.length] = $(this).text();
+                            //                   testPasswordRandoArray[testPasswordRandoArray.length] = i;
+                            //               })
+                            //           }
+                            //       }
+                            //
+                            //       $('#clearPasswordTest-2').on('click', function() {
+                            //           $('#passwordTest-2').html('');
+                            //       })
+                            //
+                            //       $('#checkPassword-2').on('click', function() {
+                            //         let matchingCtr = 0;
+                            //         let copies = 0;
+                            //         let duplicatesExists = false;
+                            //         let bankPinMatch = false;
+                            //
+                            //
+                            //           for (var i = 0; i < testPasswordRandoArray.length; i++) {
+                            //               copies = 0;
+                            //               // check for duplicates inside the test array
+                            //               for (var j = 0; j < testPasswordRandoArray.length; j++) {
+                            //                   if (copies > 1) {
+                            //                       duplicatesExists = true;
+                            //                       break;
+                            //                   }
+                            //                   if (testPasswordRandoArray[i] === testPasswordRandoArray[j]) {
+                            //                       copies++;
+                            //                   }
+                            //               }
+                            //               // check how many matching emojis
+                            //               if (jQuery.inArray(testPasswordRandoArray[i], facebookRandoArray) !== -1) {
+                            //                   matchingCtr++;
+                            //               } else {
+                            //                   matchingCtr--;
+                            //               }
+                            //           }
+                            //
+                            //           console.log(testPasswordRandoArray);
+                            //           console.log(facebookRandoArray);
+                            //           if ((matchingCtr === 5) && (testPasswordRandoArray.length === 5) && (duplicatesExists === false)) {
+                            //               noty({text: 'Password is a match!'});
+                            //
+                            //               //randomTestBegun === false;
+                            //               if ((facebookPassword.length === 5) && (emailPassword.length === 5) && (bankPassword.length === 5)) {
+                            //                   randomTestBegun = true;
+                            //               }
+                            //           }
+                            //
+                            //       })
+                            //   })
+                            //
+                            //   $('#email-2').on('click', function() {})
+                            //
+                            //   $('#bank-2').on('click', function() {})
                         }
                     } else {
-                        noty({text: 'Password does not match!'});
-                        let currentdate = new Date();
-                        time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
-                        $.post('/csv', {
-                            time: time,
-                            site: 'bank',
-                            user: user,
-                            scheme: 'emoji',
-                            mode: 'create',
-                            event: 'pwtest',
-                            data: 'bad'
-                        }, (result) => {
-                            console.log(result);
-                        });
+                      if (testPhaseEntered === true) {
+                          if (bankTestCounter > 0) {
+                              console.log(bankTestCounter);
+                              noty({
+                                  text: ('Password does not match! ' + bankTestCounter + ' tries(try) left.')
+                              });
+                              bankTestCounter--;
+                              let currentdate = new Date();
+                              time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                              $.post('/csv', {
+                                  time: time,
+                                  site: 'bank',
+                                  user: user,
+                                  scheme: "emoji",
+                                  mode: 'create',
+                                  event: 'pwtest',
+                                  data: 'bad'
+                              }, (result) => {
+                                  console.log(result);
+                              });
+
+                          } else if (bankTestCounter === 0) {
+                              noty({
+                                  text: ('Password does not match! No more tries. Select another scheme.')
+                              });
+                              let currentdate = new Date();
+                              time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                              $.post('/csv', {
+                                  time: time,
+                                  site: 'bank',
+                                  user: user,
+                                  scheme: "emoji",
+                                  mode: 'create',
+                                  event: 'pwtest',
+                                  data: 'bad'
+                              }, (result) => {
+                                  console.log(result);
+                              });
+
+                              well.html('');
+                              email.removeClass("disabled");
+                              facebook.removeClass("disabled");
+                              try_btn.addClass("disabled");
+                              bank.hide();
+                              facebookClicked = false;
+                              emailClicked = false;
+                              bankClicked = false;
+                              $('#instruct').html('');
+                              grid.html('');
+                              textArea.hide();
+                              textArea.val('');
+                              passwordTest.html('');
+                              writ_pass.hide();
+                              gridTestArea.hide();
+                              testPasswordRandoArray = [];
+                              passwordTestArray = [];
+                              //facebookGridArray = [];
+                              counter = 1;
+                          }
+
+                      } else {
+                          noty({
+                              text: 'Password does not match!'
+                          });
+                          let currentdate = new Date();
+                          time = currentdate.getFullYear() + "-" + (currentdate.getMonth() + 1) + "-" + currentdate.getDate() + " " + currentdate.getHours() + ":" + currentdate.getMinutes();
+                          $.post('/csv', {
+                              time: time,
+                              site: 'bank',
+                              user: user,
+                              scheme: "emoji",
+                              mode: 'create',
+                              event: 'pwtest',
+                              data: 'bad'
+                          }, (result) => {
+                              console.log(result);
+                          });
+                      }
                     }
                 }
 

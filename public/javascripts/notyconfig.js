@@ -12,7 +12,7 @@ $(document).ready(() => {
 
     template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
 
-    timeout: 1200, // [integer|boolean] delay for closing event in milliseconds. Set false for sticky notifications
+    timeout: 3200, // [integer|boolean] delay for closing event in milliseconds. Set false for sticky notifications
     progressBar: false, // [boolean] - displays a progress bar
 
     animation: {
