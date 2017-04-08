@@ -2,9 +2,9 @@
 
 This is a working project of an Emoji Password Tester for three different levels of security - Facebook, Email, Bank
 
-Facebook -> User does not need to remember the order of the emojis.
-Email    -> User needs to remember the exact order of the emojis.
-Bank     -> User needs to remember the order of emojis & the 4 digit PIN assigned to them.
+  - Facebook -> User does not need to remember the order of the emojis.
+  - Email    -> User needs to remember the exact order of the emojis.
+  - Bank     -> User needs to remember the order of emojis & the 4 digit PIN assigned to them.
 
 The app uses a NodeJS/ExpressJS backend, and HTML, CSS/Bootstrap & jQuery on the frontend to produce the views and AJAX requests. A log file of time taken for each step is created to analyze how exactly users react to this different password scheme.
 
