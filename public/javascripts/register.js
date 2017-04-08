@@ -5,6 +5,11 @@ $(document).ready(() => {
     let username = "";
 
     let register_btn = $('#register');
+    let reset = $('#reset');
+
+    reset.click(() => {
+      location.reload();
+    });
 
     // Click event for registration
     register_btn.click(() => {
@@ -43,25 +48,25 @@ $(document).ready(() => {
             username = user;
 
             $('.username-wrapper').hide();
-            $('.scheme-container').append('<div class="row" style="margin-top: 60px;">' +
-                '<div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click one of the schemes below to generate a password:</div>' +
-                '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook">Facebook</button></div>' +
-                '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email">Email</button></div>' +
-                '<div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank">Bank</button></div></div>' +
-                '<div id="password" class="well"></div>' +
-                '<div id="written-password" class="well"></div>' +
-                '<div id="tryRow" class="row" style="margin-top: 50px;">' +
-                '<div style="margin-bottom: 20px; font-size: 18px;" id="too">Validate your password below:</div>' +
-                '<button type="button" class="btn btn-success" id="try">Validate</button></div>' +
-                '</div>' +
-                '<div class="row" id="gridTestArea">' +
-                '<div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px; padding-top: 80px;"></div>' +
-                '<div class="col-md-4 col-sm-4" id="inputArea" style="margin-top: 80px;">' +
-                '<div id="instruct"></div>' +
-                '<div id="passwordTest" class="well"></div>' +
-                '<input id="textArea" class="form-control noresize"></input>' +
-                '<div id="testButtons" class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword" type="button" class="btn btn-success">Check</button>' +
-                '</div></div></div></div>');
+            $('.scheme-container').append(`
+              <div class="row" style="margin-top: 60px;">
+                <h2><strong>Emoji Tester!</strong></h2>
+                <div style="margin-bottom: 20px; font-size: 18px;" id="wee">Click one of the schemes below</div>
+                <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-primary" id="facebook">Facebook</button></div>
+                <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-default" id="email">Email</button></div>
+                <div class="col-md-4 col-sm-4"><button type="button" class="btn btn-danger" id="bank">Bank</button></div></div>
+                <div id="password" class="well"></div>
+                <div id="written-password" class="well"></div>
+                <div id="tryRow" class="row" style="margin-top: 50px;">
+                <div style="margin-bottom: 20px; font-size: 18px;" id="too">Validate your password below:</div>
+                <button type="button" class="btn btn-success" id="try">Validate</button></div></div>
+                <div class="row" id="gridTestArea"><div class="col-md-8 col-sm-8" id="grid" style="margin-bottom: 100px; padding-top: 80px;"></div>
+                <div class="col-md-4 col-sm-4" id="inputArea" style="margin-top: 80px;">
+                <div id="instruct"></div>
+                <div id="passwordTest" class="well"></div>
+                <input id="textArea" class="form-control noresize"></input>
+                <div id="testButtons" class="row"><button id="clearPasswordTest" type="button" class="btn btn-warning" style="margin-right: 20px;">Clear</button><button id="checkPassword" type="button" class="btn btn-success">Check</button>
+              </div></div></div></div>`);
 
             $('.scheme-container').show();
 
@@ -82,6 +87,7 @@ $(document).ready(() => {
             let passwordTest = $('#passwordTest');
             let clearPasswordTest = $('#clearPasswordTest');
             let randomTest = $('#randomTest');
+            let wee = $('#wee');
 
             writ_pass.hide();
             gridTestArea.hide();
