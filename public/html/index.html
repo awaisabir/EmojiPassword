@@ -10,6 +10,17 @@
   <body>
     <div class="container text-center">
       <div class="username-wrapper" style="margin-top:100px;">
+        <div class="jumbotron">
+          <h1> Emoji Password Tester</h1>
+          <h3 style="margin-top: 50px;">Instructions:</h3>
+            <ul class="list-unstyled text-center">
+              <li>After entering your Username, you will be introduced with three buttons which represents a website</li>
+              <li>Pick a button and go through all the schemes, validating your password</li>
+              <li>After all three schemes have been validated, the page will reset and you will now be introduced with the same buttons</li>
+              <li>This time you will have to check the previously generated passwords</li>
+              <li>You have three tries for each scheme, so make sure you get them right!</li>
+            </ul>
+        </div>
         <label id="credentials">Username</label>
         <input type="text" id="username" placeholder="Username">
         <button type="button" class="btn btn-default" id="register">Register</button>
@@ -18,6 +29,13 @@
       <div class="scheme-container">
       </div>
 
+        <div class="row">
+          <button type="button" class="btn btn-warning" id="reset">Restart</button>
+        </div>
+
+    </div>
+    <div class="footer text-center">
+      Created by <strong>@awaisabir</strong> & <strong>@TheoJA</strong>
     </div>
 
     <!-- Latest compiled and minified JavaScript -->
