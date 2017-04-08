@@ -1,6 +1,9 @@
 /*
-
+    Emoji Password backend
+    Written by: @awaisabir and @TheoJA
 */
+
+// Imports
 const express = require('express');
 const fs = require('fs');
 const emojiData = require('emoji-data');
@@ -8,13 +11,16 @@ const bodyParser = require('body-parser');
 const json2csv = require('json2csv');
 let newLine = "\r\n";
 
-const port = process.env.PORT || 3001
+// set default port to 3001 if not specified
+const port = process.env.PORT || 3001;
 
 let app = express();
 
+// bodyParser middleware
 app.use(bodyParser.urlencoded({ extended : true}));
 app.use(bodyParser.json());
 
+// csv variables & headers
 let arr = [];
 let fields = [
     'time',
@@ -26,9 +32,10 @@ let fields = [
     'data'
 ];
 
+// public folder for views
 app.use(express.static(__dirname + '/public'));
 
-// Listen on port 3001
+// Start server
 app.listen(port, () => {
 
     console.log("Server started.");
@@ -43,6 +50,7 @@ app.get('/', (req, res, next) => {
 // post endpoint for generating a csv
 app.post('/csv', (req, res, next) => {
 
+    // create JSON of body
     let item = {
         time: req.body.time,
         site: req.body.site,
@@ -52,7 +60,7 @@ app.post('/csv', (req, res, next) => {
         event: req.body.event,
         data: req.body.data
     };
-
+    // check if the file already exists
     fs.stat('./public/csv/file.csv', function(err, stat) {
         if (err === null) {
 
