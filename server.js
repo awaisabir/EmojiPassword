@@ -1,14 +1,14 @@
 /*
 
 */
-
-
 const express = require('express');
 const fs = require('fs');
 const emojiData = require('emoji-data');
 const bodyParser = require('body-parser');
 const json2csv = require('json2csv');
 let newLine = "\r\n";
+
+const port = process.env.PORT || 3001
 
 let app = express();
 
@@ -29,7 +29,7 @@ let fields = [
 app.use(express.static(__dirname + '/public'));
 
 // Listen on port 3001
-app.listen(3001, () => {
+app.listen(port, () => {
 
     console.log("Server started.");
 });
