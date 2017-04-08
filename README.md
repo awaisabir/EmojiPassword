@@ -15,4 +15,6 @@ Challenges we faced:
 What is ahead?
   - Collapsing the frontend, and using a dedicated framework like Angular 2 to encapsulate the views into components and have the logic in services instead of everything jumbled together.
 
+You can test the current state of this app here: [Emoji-PasswordTest](https://emojipassword.herokuapp.com/)
+
 Created by: [@awaisabir](https://github.com/awaisabir) and [@TheoJA](https://github.com/TheoJA).
