@@ -1,3 +1,15 @@
+.footer {
+  margin-top: 50px;
+}
+
+li {
+  margin: 5px;
+}
+
+#reset {
+  margin-top: 50px;
+}
+
 .btn {
   font-size: 17px;
 }
